@@ -8,6 +8,8 @@ local exports = {
 local asteroids_stats = exports
 local frame_subscription, stop_subscription
 local numShips = 0
+local numAsteroids = 0
+local waveCount = 1
 
 function asteroids_stats.startplugin()
 
@@ -26,10 +28,25 @@ function asteroids_stats.startplugin()
 	local function process_frame_done()
 		local cpu = manager.machine.devices[":maincpu"]
 		local space = cpu.spaces["program"]
+		local numPlayers = space:read_u8(28)
+
+		if numPlayers ~= 1 then
+			return
+		end
+
 		local numShipsPlayer1 = space:read_u8(87)
+		local numAsteroidsCur = space:read_u8(758)
 		if numShips ~= numShipsPlayer1 then
 			emu.print_info("Number of ships: " .. numShipsPlayer1)
 			numShips = numShipsPlayer1
+		end
+		if numAsteroids ~= numAsteroidsCur then
+			emu.print_info("Number of asteroids: " .. numAsteroidsCur)
+			numAsteroids = numAsteroidsCur
+			if numAsteroidsCur == 0 then
+				waveCount = waveCount + 1
+				emu.print_info("waveCount: " .. waveCount)
+			end
 		end
         end
 
