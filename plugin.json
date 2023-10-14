@@ -1,0 +1,10 @@
+{
+	"plugin": {
+		"name": "asteroids_stats",
+		"description": "Statistics for Asteroids",
+		"version": "0.1.0",
+		"author": "Rick Umali",
+		"type": "plugin",
+		"start": "false"
+	  }
+}
