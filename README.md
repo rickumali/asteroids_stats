@@ -15,9 +15,13 @@ Now that this enabled, the next time you play Asteroids, this plugin will run an
 
 ## Output
 
-This is the output that you will see.
+The display of the stats is in the lower-left corner of the game.
 
-**NOTE:** This doesn't have file or video frame output yet! 
+![Display of stats on Asteroids game screen](asteroids_stats-display.png)
+
+When you play the game from command-line, you will also see output like below. 
+
+**NOTE:** This doesn't have file output yet!
 
 ```
 rick@Mac:~/Projects/mame0258-x86 $ time ./mame asteroid -window -nomax
