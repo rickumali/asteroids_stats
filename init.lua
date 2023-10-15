@@ -25,7 +25,7 @@ function asteroids_stats.startplugin()
 		return
 	end
 
-	local function process_frame_done()
+	local function process_frame()
 		local cpu = manager.machine.devices[":maincpu"]
 		local space = cpu.spaces["program"]
 		local numPlayers = space:read_u8(28)
@@ -63,7 +63,7 @@ function asteroids_stats.startplugin()
 		end
         end
 
-	frame_subscription = emu.add_machine_frame_notifier(process_frame_done)
+	frame_subscription = emu.add_machine_frame_notifier(process_frame)
 	emu.register_prestart(start)
 	stop_subscription = emu.add_machine_stop_notifier(stop)
 end
