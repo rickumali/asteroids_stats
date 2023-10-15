@@ -12,6 +12,7 @@ function asteroids_stats.startplugin()
 	local numShips = 0
 	local numAsteroids = 0
 	local waveCount = 1
+	local numPlayers = 0
 
 	local function start()
 		if (manager.machine.system.name ~= 'asteroid') then
@@ -34,7 +35,7 @@ function asteroids_stats.startplugin()
 		end
 		local cpu = manager.machine.devices[":maincpu"]
 		local space = cpu.spaces["program"]
-		local numPlayers = space:read_u8(28)
+		numPlayers = space:read_u8(28)
 
 		if numPlayers ~= 1 then
 			numShips = 0
@@ -73,7 +74,19 @@ function asteroids_stats.startplugin()
 		end
         end
 
+	local function process_frame_done()
+		if (manager.machine.system.name ~= 'asteroid') then
+			return
+		end
+		if numPlayers ~= 1 then
+			return
+		end
+		stat_str = string.format(_p('plugin-asteroids_stats', 'WAVE %02d ASTEROIDS %02d'), waveCount, numAsteroids)
+		manager.machine.render.ui_container:draw_text('left', 0.96, stat_str, 0xf00cc00c)
+	end
+
 	frame_subscription = emu.add_machine_frame_notifier(process_frame)
+	emu.register_frame_done(process_frame_done)
 	emu.register_prestart(start)
 	stop_subscription = emu.add_machine_stop_notifier(stop)
 end
