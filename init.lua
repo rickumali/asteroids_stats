@@ -14,6 +14,9 @@ local waveCount = 1
 function asteroids_stats.startplugin()
 
 	local function start()
+		if (manager.machine.system.name ~= 'asteroid') then
+			return
+		end
 		local message
 		message = string.format(_p('plugin-asteroids_stats', 'ASTEROIDS: %s'), 'Stats Plugin On')
 		emu.print_info(message)
@@ -26,6 +29,9 @@ function asteroids_stats.startplugin()
 	end
 
 	local function process_frame()
+		if (manager.machine.system.name ~= 'asteroidfake') then
+			return
+		end
 		local cpu = manager.machine.devices[":maincpu"]
 		local space = cpu.spaces["program"]
 		local numPlayers = space:read_u8(28)
