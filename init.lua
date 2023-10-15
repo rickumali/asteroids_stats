@@ -31,6 +31,9 @@ function asteroids_stats.startplugin()
 		local numPlayers = space:read_u8(28)
 
 		if numPlayers ~= 1 then
+			numShips = 0
+			numAsteroids = 0
+			waveCount = 1
 			return
 		end
 
@@ -46,10 +49,12 @@ function asteroids_stats.startplugin()
 			numShips = numShipsPlayer1
 		end
 		if numAsteroids ~= numAsteroidsCur then
-			emu.print_info("Wave: " .. waveCount .. " Number of asteroids: " .. numAsteroidsCur)
+			emu.print_info("Wave: " .. waveCount .. " Asteroids: " .. numAsteroidsCur)
 			numAsteroids = numAsteroidsCur
-			if numAsteroidsCur == 0 then
+			if numAsteroidsCur == 0 and numShips ~= 0 then
 				waveCount = waveCount + 1
+				message = string.format(_p('plugin-asteroids_stats', 'ASTEROIDS: %s %d Next...'), 'Wave', waveCount)
+				manager.machine:popmessage(message)
 			end
 		end
         end
