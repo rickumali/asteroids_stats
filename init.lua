@@ -29,7 +29,7 @@ function asteroids_stats.startplugin()
 	end
 
 	local function process_frame()
-		if (manager.machine.system.name ~= 'asteroidfake') then
+		if (manager.machine.system.name ~= 'asteroid') then
 			return
 		end
 		local cpu = manager.machine.devices[":maincpu"]
