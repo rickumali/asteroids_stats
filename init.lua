@@ -45,7 +45,7 @@ function asteroids_stats.startplugin()
 		end
 
 		local plyrDispTimer = space:read_u8(90)
-		if plyrDispTimer ~=0 then
+		if plyrDispTimer ~= 0 then
 			return
 		end
 
