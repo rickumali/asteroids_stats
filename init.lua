@@ -42,6 +42,7 @@ function asteroids_stats.startplugin()
 			numShips = 0
 			numAsteroids = 0
 			waveCount = 1
+			start_wave_time = nil
 			return
 		end
 
