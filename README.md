@@ -20,281 +20,187 @@ This is the output that you will see.
 **NOTE:** This doesn't have file or video frame output yet! 
 
 ```
-rick@Mac:~/Projects/mame0258-x86 $ ./mame asteroid -window -nomax
+rick@Mac:~/Projects/mame0258-x86 $ ./mame asteroid -window -record try-62
+Record input timecode file: try-62.timecode
 ASTEROIDS: Stats Plugin On
 Number of ships: 3
-Wave: 1 Number of asteroids: 4
-Wave: 1 Number of asteroids: 6
-Wave: 1 Number of asteroids: 8
-Wave: 1 Number of asteroids: 10
-Wave: 1 Number of asteroids: 9
-Wave: 1 Number of asteroids: 8
-Wave: 1 Number of asteroids: 7
-Wave: 1 Number of asteroids: 6
-Wave: 1 Number of asteroids: 5
-Wave: 1 Number of asteroids: 4
-Wave: 1 Number of asteroids: 6
-Wave: 1 Number of asteroids: 8
-Wave: 1 Number of asteroids: 10
-Wave: 1 Number of asteroids: 9
-Wave: 1 Number of asteroids: 8
-Wave: 1 Number of asteroids: 7
-Wave: 1 Number of asteroids: 6
-Wave: 1 Number of asteroids: 5
-Wave: 1 Number of asteroids: 4
-Wave: 1 Number of asteroids: 3
-Wave: 1 Number of asteroids: 5
-Wave: 1 Number of asteroids: 7
-Wave: 1 Number of asteroids: 6
-Wave: 1 Number of asteroids: 8
-Wave: 1 Number of asteroids: 7
-Wave: 1 Number of asteroids: 6
-Wave: 1 Number of asteroids: 8
-Wave: 1 Number of asteroids: 6
-Wave: 1 Number of asteroids: 8
-Wave: 1 Number of asteroids: 7
-Wave: 1 Number of asteroids: 6
-Wave: 1 Number of asteroids: 5
-Wave: 1 Number of asteroids: 4
-Wave: 1 Number of asteroids: 3
-Wave: 1 Number of asteroids: 2
-Wave: 1 Number of asteroids: 1
-Wave: 1 Number of asteroids: 3
-Wave: 1 Number of asteroids: 2
-Wave: 1 Number of asteroids: 1
-Wave: 1 Number of asteroids: 0
-Wave: 2 Number of asteroids: 6
-Wave: 2 Number of asteroids: 8
-Wave: 2 Number of asteroids: 10
-Wave: 2 Number of asteroids: 12
-Wave: 2 Number of asteroids: 11
-Wave: 2 Number of asteroids: 10
-Wave: 2 Number of asteroids: 9
-Wave: 2 Number of asteroids: 11
-Wave: 2 Number of asteroids: 13
-Wave: 2 Number of asteroids: 12
-Wave: 2 Number of asteroids: 11
-Wave: 2 Number of asteroids: 13
-Wave: 2 Number of asteroids: 15
-Wave: 2 Number of asteroids: 14
-Wave: 2 Number of asteroids: 13
-Wave: 2 Number of asteroids: 15
-Wave: 2 Number of asteroids: 17
-Wave: 2 Number of asteroids: 16
-Wave: 2 Number of asteroids: 15
-Wave: 2 Number of asteroids: 14
-Wave: 2 Number of asteroids: 13
-Wave: 2 Number of asteroids: 15
-Wave: 2 Number of asteroids: 17
-Wave: 2 Number of asteroids: 16
-Wave: 2 Number of asteroids: 15
-Wave: 2 Number of asteroids: 14
-Wave: 2 Number of asteroids: 13
-Wave: 2 Number of asteroids: 15
-Wave: 2 Number of asteroids: 14
-Wave: 2 Number of asteroids: 13
-Wave: 2 Number of asteroids: 15
-Wave: 2 Number of asteroids: 14
-Wave: 2 Number of asteroids: 13
-Wave: 2 Number of asteroids: 12
-Wave: 2 Number of asteroids: 11
-Wave: 2 Number of asteroids: 13
-Wave: 2 Number of asteroids: 12
-Wave: 2 Number of asteroids: 11
-Wave: 2 Number of asteroids: 10
-Wave: 2 Number of asteroids: 9
-Wave: 2 Number of asteroids: 8
-Wave: 2 Number of asteroids: 10
-Wave: 2 Number of asteroids: 12
-Wave: 2 Number of asteroids: 11
-Wave: 2 Number of asteroids: 10
-Wave: 2 Number of asteroids: 9
-Wave: 2 Number of asteroids: 8
-Wave: 2 Number of asteroids: 7
-Wave: 2 Number of asteroids: 6
-Wave: 2 Number of asteroids: 5
-Wave: 2 Number of asteroids: 7
-Wave: 2 Number of asteroids: 6
-Wave: 2 Number of asteroids: 5
-Wave: 2 Number of asteroids: 4
-Wave: 2 Number of asteroids: 3
-Wave: 2 Number of asteroids: 5
-Wave: 2 Number of asteroids: 4
-Wave: 2 Number of asteroids: 3
-Wave: 2 Number of asteroids: 2
-Wave: 2 Number of asteroids: 1
-Wave: 2 Number of asteroids: 0
-Wave: 3 Number of asteroids: 8
-Wave: 3 Number of asteroids: 10
-Wave: 3 Number of asteroids: 12
-Wave: 3 Number of asteroids: 11
-Wave: 3 Number of asteroids: 10
-Wave: 3 Number of asteroids: 9
-Wave: 3 Number of asteroids: 11
-Wave: 3 Number of asteroids: 10
-Wave: 3 Number of asteroids: 12
-Wave: 3 Number of asteroids: 14
-Wave: 3 Number of asteroids: 13
-Wave: 3 Number of asteroids: 15
-Wave: 3 Number of asteroids: 14
-Wave: 3 Number of asteroids: 16
-Wave: 3 Number of asteroids: 15
-Wave: 3 Number of asteroids: 14
-Wave: 3 Number of asteroids: 16
-Wave: 3 Number of asteroids: 15
-Wave: 3 Number of asteroids: 14
-Wave: 3 Number of asteroids: 13
-Wave: 3 Number of asteroids: 12
-Wave: 3 Number of asteroids: 11
-Wave: 3 Number of asteroids: 10
-Wave: 3 Number of asteroids: 12
-Wave: 3 Number of asteroids: 14
-Wave: 3 Number of asteroids: 16
-Wave: 3 Number of asteroids: 18
-Wave: 3 Number of asteroids: 20
-Wave: 3 Number of asteroids: 19
-Wave: 3 Number of asteroids: 18
-Wave: 3 Number of asteroids: 17
-Wave: 3 Number of asteroids: 16
-Wave: 3 Number of asteroids: 15
-Wave: 3 Number of asteroids: 17
-Wave: 3 Number of asteroids: 16
-Wave: 3 Number of asteroids: 15
-Wave: 3 Number of asteroids: 14
-Wave: 3 Number of asteroids: 13
-Wave: 3 Number of asteroids: 12
-Wave: 3 Number of asteroids: 11
-Wave: 3 Number of asteroids: 13
-Wave: 3 Number of asteroids: 12
-Wave: 3 Number of asteroids: 14
-Wave: 3 Number of asteroids: 16
-Wave: 3 Number of asteroids: 15
-Wave: 3 Number of asteroids: 14
-Wave: 3 Number of asteroids: 13
-Wave: 3 Number of asteroids: 12
-Wave: 3 Number of asteroids: 14
-Wave: 3 Number of asteroids: 16
-Wave: 3 Number of asteroids: 15
-Wave: 3 Number of asteroids: 14
-Wave: 3 Number of asteroids: 13
-Wave: 3 Number of asteroids: 14
-Wave: 3 Number of asteroids: 13
-Wave: 3 Number of asteroids: 12
-Wave: 3 Number of asteroids: 11
-Wave: 3 Number of asteroids: 10
-Wave: 3 Number of asteroids: 12
-Wave: 3 Number of asteroids: 11
-Wave: 3 Number of asteroids: 10
-Wave: 3 Number of asteroids: 9
-Wave: 3 Number of asteroids: 11
-Wave: 3 Number of asteroids: 10
-Wave: 3 Number of asteroids: 12
-Wave: 3 Number of asteroids: 11
-Wave: 3 Number of asteroids: 10
-Wave: 3 Number of asteroids: 9
-Wave: 3 Number of asteroids: 8
-Wave: 3 Number of asteroids: 7
+Wave: 1 Asteroids: 4
+Wave: 1 Asteroids: 6
+Wave: 1 Asteroids: 5
+Wave: 1 Asteroids: 7
+Wave: 1 Asteroids: 9
+Wave: 1 Asteroids: 11
+Wave: 1 Asteroids: 10
+Wave: 1 Asteroids: 9
+Wave: 1 Asteroids: 8
+Wave: 1 Asteroids: 7
+Wave: 1 Asteroids: 6
+Wave: 1 Asteroids: 8
+Wave: 1 Asteroids: 10
+Wave: 1 Asteroids: 9
+Wave: 1 Asteroids: 8
+Wave: 1 Asteroids: 7
+Wave: 1 Asteroids: 9
+Wave: 1 Asteroids: 8
+Wave: 1 Asteroids: 7
+Wave: 1 Asteroids: 6
+Wave: 1 Asteroids: 8
+Wave: 1 Asteroids: 7
+Wave: 1 Asteroids: 6
+Wave: 1 Asteroids: 8
+Wave: 1 Asteroids: 10
+Wave: 1 Asteroids: 9
+Wave: 1 Asteroids: 8
+Wave: 1 Asteroids: 7
+Wave: 1 Asteroids: 6
+Wave: 1 Asteroids: 8
+Wave: 1 Asteroids: 7
+Wave: 1 Asteroids: 6
+Wave: 1 Asteroids: 8
+Wave: 1 Asteroids: 7
+Wave: 1 Asteroids: 6
+Wave: 1 Asteroids: 5
+Wave: 1 Asteroids: 4
+Wave: 1 Asteroids: 3
+Wave: 1 Asteroids: 2
+Wave: 1 Asteroids: 1
+Wave: 1 Asteroids: 0
+Wave: 2 Asteroids: 6
+Wave: 2 Asteroids: 8
+Wave: 2 Asteroids: 10
+Wave: 2 Asteroids: 12
+Wave: 2 Asteroids: 11
 Number of ships: 2
-Wave: 3 Number of asteroids: 6
-Wave: 3 Number of asteroids: 5
-Wave: 3 Number of asteroids: 4
-Wave: 3 Number of asteroids: 6
-Wave: 3 Number of asteroids: 5
-Wave: 3 Number of asteroids: 4
-Wave: 3 Number of asteroids: 3
-Wave: 3 Number of asteroids: 2
-Wave: 3 Number of asteroids: 1
-Number of ships: 3
-Wave: 3 Number of asteroids: 0
-Wave: 4 Number of asteroids: 10
-Wave: 4 Number of asteroids: 12
-Wave: 4 Number of asteroids: 14
-Wave: 4 Number of asteroids: 16
-Wave: 4 Number of asteroids: 15
-Wave: 4 Number of asteroids: 17
-Wave: 4 Number of asteroids: 16
-Wave: 4 Number of asteroids: 15
-Wave: 4 Number of asteroids: 14
-Wave: 4 Number of asteroids: 13
-Wave: 4 Number of asteroids: 12
-Wave: 4 Number of asteroids: 14
-Wave: 4 Number of asteroids: 16
-Wave: 4 Number of asteroids: 15
-Wave: 4 Number of asteroids: 14
-Wave: 4 Number of asteroids: 13
-Wave: 4 Number of asteroids: 15
-Wave: 4 Number of asteroids: 17
-Wave: 4 Number of asteroids: 18
-Wave: 4 Number of asteroids: 17
-Wave: 4 Number of asteroids: 16
-Wave: 4 Number of asteroids: 15
-Wave: 4 Number of asteroids: 17
-Wave: 4 Number of asteroids: 19
-Wave: 4 Number of asteroids: 21
-Wave: 4 Number of asteroids: 20
-Wave: 4 Number of asteroids: 22
-Wave: 4 Number of asteroids: 21
-Wave: 4 Number of asteroids: 23
-Wave: 4 Number of asteroids: 22
-Wave: 4 Number of asteroids: 21
-Wave: 4 Number of asteroids: 20
-Wave: 4 Number of asteroids: 22
-Wave: 4 Number of asteroids: 24
-Wave: 4 Number of asteroids: 23
-Wave: 4 Number of asteroids: 25
-Wave: 4 Number of asteroids: 27
-Wave: 4 Number of asteroids: 26
-Wave: 4 Number of asteroids: 25
-Wave: 4 Number of asteroids: 24
-Wave: 4 Number of asteroids: 26
-Wave: 4 Number of asteroids: 25
-Wave: 4 Number of asteroids: 24
-Wave: 4 Number of asteroids: 23
-Wave: 4 Number of asteroids: 22
-Wave: 4 Number of asteroids: 21
-Wave: 4 Number of asteroids: 20
-Wave: 4 Number of asteroids: 22
-Wave: 4 Number of asteroids: 21
-Wave: 4 Number of asteroids: 20
-Wave: 4 Number of asteroids: 19
-Wave: 4 Number of asteroids: 18
-Wave: 4 Number of asteroids: 17
-Wave: 4 Number of asteroids: 19
-Wave: 4 Number of asteroids: 21
-Wave: 4 Number of asteroids: 22
-Wave: 4 Number of asteroids: 21
-Wave: 4 Number of asteroids: 20
-Wave: 4 Number of asteroids: 22
-Wave: 4 Number of asteroids: 21
-Wave: 4 Number of asteroids: 19
-Wave: 4 Number of asteroids: 18
-Wave: 4 Number of asteroids: 17
-Wave: 4 Number of asteroids: 19
-Wave: 4 Number of asteroids: 18
-Number of ships: 2
-Wave: 4 Number of asteroids: 17
-Wave: 4 Number of asteroids: 16
-Wave: 4 Number of asteroids: 15
-Wave: 4 Number of asteroids: 14
-Wave: 4 Number of asteroids: 16
-Wave: 4 Number of asteroids: 15
-Wave: 4 Number of asteroids: 14
-Wave: 4 Number of asteroids: 13
-Wave: 4 Number of asteroids: 12
-Wave: 4 Number of asteroids: 14
+Wave: 2 Asteroids: 13
+Wave: 2 Asteroids: 12
+Wave: 2 Asteroids: 11
+Wave: 2 Asteroids: 10
+Wave: 2 Asteroids: 12
+Wave: 2 Asteroids: 11
+Wave: 2 Asteroids: 10
+Wave: 2 Asteroids: 12
+Wave: 2 Asteroids: 11
+Wave: 2 Asteroids: 13
+Wave: 2 Asteroids: 15
+Wave: 2 Asteroids: 17
+Wave: 2 Asteroids: 19
+Wave: 2 Asteroids: 18
+Wave: 2 Asteroids: 17
+Wave: 2 Asteroids: 16
+Wave: 2 Asteroids: 15
+Wave: 2 Asteroids: 14
+Wave: 2 Asteroids: 13
+Wave: 2 Asteroids: 15
+Wave: 2 Asteroids: 14
+Wave: 2 Asteroids: 16
+Wave: 2 Asteroids: 18
+Wave: 2 Asteroids: 17
+Wave: 2 Asteroids: 16
+Wave: 2 Asteroids: 18
+Wave: 2 Asteroids: 17
+Wave: 2 Asteroids: 16
+Wave: 2 Asteroids: 15
+Wave: 2 Asteroids: 14
+Wave: 2 Asteroids: 13
+Wave: 2 Asteroids: 12
+Wave: 2 Asteroids: 11
+Wave: 2 Asteroids: 10
+Wave: 2 Asteroids: 12
+Wave: 2 Asteroids: 11
+Wave: 2 Asteroids: 10
+Wave: 2 Asteroids: 9
+Wave: 2 Asteroids: 8
+Wave: 2 Asteroids: 10
+Wave: 2 Asteroids: 9
+Wave: 2 Asteroids: 8
+Wave: 2 Asteroids: 7
+Wave: 2 Asteroids: 9
+Wave: 2 Asteroids: 8
+Wave: 2 Asteroids: 7
+Wave: 2 Asteroids: 6
+Wave: 2 Asteroids: 8
+Wave: 2 Asteroids: 7
+Wave: 2 Asteroids: 6
+Wave: 2 Asteroids: 5
+Wave: 2 Asteroids: 4
+Wave: 2 Asteroids: 3
+Wave: 2 Asteroids: 2
+Wave: 2 Asteroids: 1
+Wave: 2 Asteroids: 0
+Wave: 3 Asteroids: 8
+Wave: 3 Asteroids: 10
+Wave: 3 Asteroids: 12
+Wave: 3 Asteroids: 11
+Wave: 3 Asteroids: 10
+Wave: 3 Asteroids: 12
+Wave: 3 Asteroids: 14
+Wave: 3 Asteroids: 16
+Wave: 3 Asteroids: 18
+Wave: 3 Asteroids: 17
+Wave: 3 Asteroids: 16
+Wave: 3 Asteroids: 15
+Wave: 3 Asteroids: 14
+Wave: 3 Asteroids: 13
+Wave: 3 Asteroids: 12
+Wave: 3 Asteroids: 14
+Wave: 3 Asteroids: 13
+Wave: 3 Asteroids: 12
+Wave: 3 Asteroids: 14
+Wave: 3 Asteroids: 13
+Wave: 3 Asteroids: 12
+Wave: 3 Asteroids: 14
+Wave: 3 Asteroids: 13
+Wave: 3 Asteroids: 14
+Wave: 3 Asteroids: 13
+Wave: 3 Asteroids: 15
+Wave: 3 Asteroids: 17
+Wave: 3 Asteroids: 16
+Wave: 3 Asteroids: 15
+Wave: 3 Asteroids: 14
+Wave: 3 Asteroids: 13
 Number of ships: 1
-Wave: 4 Number of asteroids: 13
-Wave: 4 Number of asteroids: 12
-Wave: 4 Number of asteroids: 14
-Wave: 4 Number of asteroids: 13
-Wave: 4 Number of asteroids: 15
-Wave: 4 Number of asteroids: 17
-Wave: 4 Number of asteroids: 16
-Wave: 4 Number of asteroids: 15
+Wave: 3 Asteroids: 15
+Wave: 3 Asteroids: 14
+Wave: 3 Asteroids: 13
+Wave: 3 Asteroids: 15
+Wave: 3 Asteroids: 14
+Wave: 3 Asteroids: 13
+Wave: 3 Asteroids: 15
+Wave: 3 Asteroids: 14
+Wave: 3 Asteroids: 16
+Wave: 3 Asteroids: 15
+Wave: 3 Asteroids: 14
+Wave: 3 Asteroids: 13
+Wave: 3 Asteroids: 12
+Wave: 3 Asteroids: 14
+Wave: 3 Asteroids: 13
+Wave: 3 Asteroids: 12
+Wave: 3 Asteroids: 14
+Wave: 3 Asteroids: 13
+Wave: 3 Asteroids: 12
+Wave: 3 Asteroids: 11
+Wave: 3 Asteroids: 10
+Wave: 3 Asteroids: 12
+Wave: 3 Asteroids: 11
+Wave: 3 Asteroids: 13
+Wave: 3 Asteroids: 15
+Wave: 3 Asteroids: 14
+Wave: 3 Asteroids: 13
+Wave: 3 Asteroids: 12
+Wave: 3 Asteroids: 11
+Wave: 3 Asteroids: 10
+Wave: 3 Asteroids: 12
+Wave: 3 Asteroids: 11
+Wave: 3 Asteroids: 13
+Wave: 3 Asteroids: 12
+Wave: 3 Asteroids: 11
+Wave: 3 Asteroids: 10
+Wave: 3 Asteroids: 9
+Wave: 3 Asteroids: 8
+Wave: 3 Asteroids: 7
 Number of ships: 0
-Wave: 4 Number of asteroids: 14
-Wave: 4 Number of asteroids: 13
-Average speed: 100.00% (191 seconds)
+Wave: 3 Asteroids: 6
+Average speed: 99.83% (151 seconds)
 ```
 
 ## Author
