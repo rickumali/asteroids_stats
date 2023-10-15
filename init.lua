@@ -13,6 +13,7 @@ function asteroids_stats.startplugin()
 	local numAsteroids = 0
 	local waveCount = 1
 	local numPlayers = 0
+	local start_wave_time = nil
 
 	local function start()
 		if (manager.machine.system.name ~= 'asteroid') then
@@ -57,11 +58,26 @@ function asteroids_stats.startplugin()
 			emu.print_info("Number of ships: " .. numShipsPlayer1)
 			numShips = numShipsPlayer1
 		end
+		if start_wave_time == nil then
+			start_wave_time = manager.machine.time
+		end
 
 		local numAsteroidsCur = space:read_u8(758)
 		if numAsteroids ~= numAsteroidsCur then
 			if numAsteroidsCur == 0 then
-				emu.print_info("Wave: " .. waveCount .. " Asteroids: DONE")
+				local end_wave_time = manager.machine.time
+				local elapsed = end_wave_time - start_wave_time
+				local sec_elapsed = elapsed.seconds
+				local msec_elapsed = (sec_elapsed * 1000) + elapsed.msec
+				local msec_elapsed_str = string.format('%015d', msec_elapsed)
+				local elapsed_str = string.format(
+						'%02d:%02d:%02d.%03d',
+						sec_elapsed // (60 * 60),
+						(sec_elapsed // 60) % 60,
+						sec_elapsed % 60,
+						msec_elapsed % 1000)
+				emu.print_info("Wave: " .. waveCount .. " Asteroids: DONE Elapsed: " .. elapsed_str)
+				start_wave_time = end_wave_time
 			else
 				emu.print_info("Wave: " .. waveCount .. " Asteroids: " .. numAsteroidsCur)
 			end
