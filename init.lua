@@ -7,11 +7,11 @@ local exports = {
 
 local asteroids_stats = exports
 local frame_subscription, stop_subscription
-local numShips = 0
-local numAsteroids = 0
-local waveCount = 1
 
 function asteroids_stats.startplugin()
+	local numShips = 0
+	local numAsteroids = 0
+	local waveCount = 1
 
 	local function start()
 		if (manager.machine.system.name ~= 'asteroid') then
