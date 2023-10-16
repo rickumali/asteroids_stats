@@ -78,7 +78,7 @@ function asteroids_stats.startplugin()
 						sec_elapsed % 60,
 						msec_elapsed % 1000)
 				emu.print_info("Wave: " .. waveCount .. " Asteroids: DONE Elapsed: " .. elapsed_str)
-				start_wave_time = end_wave_time
+				start_wave_time = nil
 			else
 				emu.print_info("Wave: " .. waveCount .. " Asteroids: " .. numAsteroidsCur)
 			end
@@ -98,7 +98,20 @@ function asteroids_stats.startplugin()
 		if numPlayers ~= 1 then
 			return
 		end
-		stat_str = string.format(_p('plugin-asteroids_stats', 'WAVE %02d ASTEROIDS %02d'), waveCount, numAsteroids)
+		if start_wave_time == nil then
+			stat_str = string.format(_p('plugin-asteroids_stats', 'WAVE %02d ASTEROIDS %02d'), waveCount, numAsteroids)
+		else
+			local cur_wave_time = manager.machine.time
+			local elapsed = cur_wave_time - start_wave_time
+			local sec_elapsed = elapsed.seconds
+			local msec_elapsed = (sec_elapsed * 1000) + elapsed.msec
+			local msec_elapsed_str = string.format('%015d', msec_elapsed)
+			local elapsed_str = string.format(
+					'%02d:%02d',
+					(sec_elapsed // 60) % 60,
+					sec_elapsed % 60)
+			stat_str = string.format(_p('plugin-asteroids_stats', 'WAVE %02d ASTEROIDS %02d ELAPSED %s'), waveCount, numAsteroids, elapsed_str)
+		end
 		manager.machine.render.ui_container:draw_text('left', 0.96, stat_str, 0xf00cc00c)
 	end
 
