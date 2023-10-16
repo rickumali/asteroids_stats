@@ -12,6 +12,7 @@ A Lua plugin for [MAME](https://www.mamedev.org) that tracks Asteroids stats
 Now that this enabled, the next time you play Asteroids, this plugin will run and emit information to the console.
 
 **NOTE:** This only works for one player games!
+**NOTE:** This works on playback of recorded games!
 
 ## Output
 
