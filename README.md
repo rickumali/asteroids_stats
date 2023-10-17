@@ -14,6 +14,8 @@ Now that this enabled, the next time you play Asteroids, this plugin will run an
 **NOTE:** This only works for one player games!
 **NOTE:** This works on playback of recorded games!
 
+## Configuration
+
 ## Output
 
 The display of the stats is in the lower-left corner of the game.
@@ -269,6 +271,13 @@ real    2m41.576s
 user    0m35.730s
 sys     0m8.842s
 ```
+
+## Configuration
+
+This plugin provides a menu option to control where the heads up display (HUD)
+for the statistics should appear: left or right. After you start Asteroids,
+Access this menu by pressing `TAB`, then `Plugin Options', then 'Asteroids
+Statistics'.
 
 ## Author
 
