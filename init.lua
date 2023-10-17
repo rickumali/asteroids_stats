@@ -119,6 +119,7 @@ function asteroids_stats.startplugin()
 	emu.register_frame_done(process_frame_done)
 	emu.register_prestart(start)
 	stop_subscription = emu.add_machine_stop_notifier(stop)
+	emu.register_menu(nil, menu_populate, _p('plugin-asteroids_stats', 'Asteroids Statistics'))
 end
 
 return exports
