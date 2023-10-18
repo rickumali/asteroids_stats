@@ -14,8 +14,13 @@ function asteroids_stats.startplugin()
 	local waveCount = 1
 	local numPlayers = 0
 	local start_wave_time = nil
-	local justify = 0 -- 0 = LEFT, 1 = RIGHT
-	local menu_item_justify_idx
+
+	local menu_justify_idx = 0
+	local menu_justify_sel = 1
+	local menu_justify = {
+		{ ["label"] = "Left", ["arrows"] = "r", ["value"] = 'left' },
+		{ ["label"] = "Right", ["arrows"] = "l", ["value"] = 'right' }
+	}
 
 	local function start()
 		if (manager.machine.system.name ~= 'asteroid') then
@@ -114,21 +119,26 @@ function asteroids_stats.startplugin()
 					sec_elapsed % 60)
 			stat_str = string.format(_p('plugin-asteroids_stats', 'WAVE %02d ASTEROIDS %02d ELAPSED %s'), waveCount, numAsteroids, elapsed_str)
 		end
-		local justify_string = nil
-		if justify == 0 then
-			justify_string = 'left'
-		elseif justify == 1 then
-			justify_string = 'right'
-		else
-			justify_string = 'left'
-		end
-		manager.machine.render.ui_container:draw_text(justify_string, 0.96, stat_str, 0xf00cc00c)
+		manager.machine.render.ui_container:draw_text(menu_justify[menu_justify_sel]['value'], 0.96, stat_str, 0xf00cc00c)
 	end
 
 	local function menu_callback(index, event)
-		if index == menu_item_justify_idx then
-			if (event == 'select') or (event == 'left') or (event == 'right') then
-				justify = (justify ~= 0) and 0 or 1
+		if index == menu_justify_idx then
+			if event == 'select' then
+				return true
+			end
+			if event == 'left' then
+				menu_justify_sel = menu_justify_sel - 1
+				if menu_justify_sel == 0 then
+					menu_justify_sel = 1
+				end
+				return true
+			end
+			if event == 'right' then
+				menu_justify_sel = menu_justify_sel + 1
+				if menu_justify_sel == 3 then
+					menu_justify_sel = 2
+				end
 				return true
 			end
 		end
@@ -139,10 +149,8 @@ function asteroids_stats.startplugin()
 		local result = { }
 		table.insert(result, { _p('plugin-asteroids_stats', 'Asteroids Statistics'), '', 'off' })
 		table.insert(result, { '---', '', '' })
-
-		local draw_text_justify_val = (justify == 0) and _p('plugin-asteroids_stats', 'Left') or _p('plugins-asteroids_stats', 'Right')
-		table.insert(result, { _p('plugin-asteroids_stats', 'Stats HUD Position'), draw_text_justify_val, (justify > 0) and 'l' or 'r' })
-		menu_item_justify_idx = #result
+		table.insert(result, { _p('plugin-asteroids_stats', 'Stats HUD Position'), menu_justify[menu_justify_sel]['label'], menu_justify[menu_justify_sel]['arrows']})
+		menu_justify_idx = #result
 		return result
 	end
 
