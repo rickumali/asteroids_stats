@@ -16,16 +16,69 @@ function asteroids_stats.startplugin()
 	local start_wave_time = nil
 
 	local menu_justify_idx = 0
-	local menu_justify_sel = 1
+	local menu_justify_sel
 	local menu_justify = {
 		{ ["label"] = "Left", ["arrows"] = "r", ["value"] = 'left' },
 		{ ["label"] = "Right", ["arrows"] = "l", ["value"] = 'right' }
 	}
 
+	local function get_settings_path()
+		return manager.machine.options.entries.homepath:value():match('([^;]+)') .. '/asteroids_stats'
+	end
+
+	local function load_settings()
+		-- try to open configuration file
+		local cfgname = get_settings_path() .. '/plugin.cfg'
+		local cfgfile = io.open(cfgname, 'r')
+		if not cfgfile then
+			return -- probably harmless, configuration just doesn't exist yet
+		end
+
+		-- parse settings as JSON
+		local json = require('json')
+		local settings = json.parse(cfgfile:read('a'))
+		cfgfile:close()
+		if not settings then
+			emu.print_error(string.format('Error loading Asteroids Statistics settings: error parsing file "%s" as JSON', cfgname))
+			return
+		end
+
+		if settings.justify == 'left' then
+			menu_justify_sel = 1
+		elseif settings.justify == 'right' then
+			menu_justify_sel = 2
+		else
+			menu_justify_sel = 1
+		end
+	end
+
+	local function save_settings()
+		local path = get_settings_path()
+		local attr = lfs.attributes(path)
+		if not attr then
+			lfs.mkdir(path)
+		elseif attr.mode ~= 'directory' then
+			emu.print_error(string.format('Error saving Asteroids Statistics settings: "%s" is not a directory', path))
+			return
+		end
+		local json = require('json')
+		local settings = { justify =  menu_justify[menu_justify_sel]['value'] }
+		local data = json.stringify(settings, { indent = true })
+		local cfgname = path .. '/plugin.cfg'
+		local cfgfile = io.open(cfgname, 'w')
+		if not cfgfile then
+			emu.print_error(string.format('Error saving Asteroids Statistics settings: error opening file "%s" for writing', cfgname))
+			return
+		end
+		cfgfile:write(data)
+		cfgfile:close()
+	end
+
 	local function start()
 		if (manager.machine.system.name ~= 'asteroid') then
 			return
 		end
+		load_settings()
 		local message
 		message = string.format(_p('plugin-asteroids_stats', 'ASTEROIDS: %s'), 'Stats Plugin On')
 		emu.print_info(message)
@@ -34,6 +87,7 @@ function asteroids_stats.startplugin()
 	end
 
 	local function stop()
+		save_settings()
 		return
 	end
 
