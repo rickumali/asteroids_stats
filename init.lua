@@ -13,6 +13,7 @@ function asteroids_stats.startplugin()
 	local numAsteroids = 0
 	local waveCount = 1
 	local numPlayers = 0
+	local scrStatus = 0
 	local start_wave_time = nil
 
 	local menu_justify_idx = 0
@@ -21,6 +22,37 @@ function asteroids_stats.startplugin()
 		{ ["label"] = "Left", ["arrows"] = "r", ["value"] = 'left' },
 		{ ["label"] = "Right", ["arrows"] = "l", ["value"] = 'right' }
 	}
+
+	local function tobinary( number )
+	  local str = ""
+	  if number == 0 then
+	      return 0
+	  elseif number < 0 then
+	      number = - number
+	      str = "-"
+	  end
+	  local power = 0
+	  while true do
+	      if 2^power > number then break end
+	      power = power + 1
+	  end
+	  local dot = true
+	  while true do
+	      power = power - 1
+	      if dot and power < 0 then
+	          str = str .. "."
+	          dot = false
+	      end
+	      if 2^power <= number then
+	          number = number - 2^power
+	          str = str .. "1"
+	      else
+	          str = str .. "0"
+	      end
+	      if number == 0 and power < 1 then break end
+	  end
+	  return str
+	end
 
 	local function get_settings_path()
 		return manager.machine.options.entries.homepath:value():match('([^;]+)') .. '/asteroids_stats'
@@ -150,6 +182,8 @@ function asteroids_stats.startplugin()
 				manager.machine:popmessage(message)
 			end
 		end
+
+		scrStatus = space:read_u8(540)
         end
 
 	local function process_frame_done()
@@ -174,6 +208,12 @@ function asteroids_stats.startplugin()
 			stat_str = string.format(_p('plugin-asteroids_stats', 'WAVE %02d ASTEROIDS %02d ELAPSED %s'), waveCount, numAsteroids, elapsed_str)
 		end
 		manager.machine.render.ui_container:draw_text(menu_justify[menu_justify_sel]['value'], 0.96, stat_str, 0xf00cc00c)
+
+		if scrStatus ~= nil and scrStatus ~= 0 then
+			manager.machine.render.ui_container:draw_text('right', 0.5, tobinary(scrStatus), 0xf00cc00c)
+			emu.print_info("scrStatus: " .. scrStatus .. " scrStatus BIN: " .. tobinary(scrStatus))
+		end
+
 	end
 
 	local function menu_callback(index, event)
