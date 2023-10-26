@@ -23,35 +23,36 @@ function asteroids_stats.startplugin()
 		{ ["label"] = "Right", ["arrows"] = "l", ["value"] = 'right' }
 	}
 
-	local function tobinary( number )
-	  local str = ""
-	  if number == 0 then
-	      return 0
-	  elseif number < 0 then
-	      number = - number
-	      str = "-"
-	  end
-	  local power = 0
-	  while true do
-	      if 2^power > number then break end
-	      power = power + 1
-	  end
-	  local dot = true
-	  while true do
-	      power = power - 1
-	      if dot and power < 0 then
-	          str = str .. "."
-	          dot = false
-	      end
-	      if 2^power <= number then
-	          number = number - 2^power
-	          str = str .. "1"
-	      else
-	          str = str .. "0"
-	      end
-	      if number == 0 and power < 1 then break end
-	  end
-	  return str
+	-- From @lucullus answer at https://stackoverflow.com/a/65444273/10030
+	local function tobinary(number)
+		local str = ""
+		if number == 0 then
+			return 0
+		elseif number < 0 then
+			number = - number
+			str = "-"
+		end
+		local power = 0
+		while true do
+			if 2^power > number then break end
+			power = power + 1
+		end
+		local dot = true
+		while true do
+			power = power - 1
+			if dot and power < 0 then
+				str = str .. "."
+				dot = false
+			end
+			if 2^power <= number then
+				number = number - 2^power
+				str = str .. "1"
+			else
+				str = str .. "0"
+			end
+			if number == 0 and power < 1 then break end
+		end
+		return str
 	end
 
 	local function get_settings_path()
