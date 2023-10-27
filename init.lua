@@ -15,6 +15,9 @@ function asteroids_stats.startplugin()
 	local numPlayers = 0
 	local scrStatus = 0
 	local start_wave_time = nil
+	local prevScore = 0
+	local curScore = 0
+	local flipScoreCount = 0
 
 	local menu_justify_idx = 0
 	local menu_justify_sel
@@ -124,6 +127,26 @@ function asteroids_stats.startplugin()
 		return
 	end
 
+	-- In a byte, this returns the leftmost nibble: XXXX----
+	local function getFirstNibbleAsDecimal(num)
+		return math.floor(num / 16)
+	end
+
+	-- In a byte, this returns the rightmost nibble: ----XXXX
+	local function getSecondNibbleAsDecimal(num)
+		return num % 16
+	end
+
+	local function getScore()
+		local cpu = manager.machine.devices[":maincpu"]
+		local space = cpu.spaces["program"]
+		local bcd10_raw = space:read_u8(82)
+		local bcd1000_raw = space:read_u8(83)
+		local bcd10s = getFirstNibbleAsDecimal(bcd10_raw) * 10 + getSecondNibbleAsDecimal(bcd10_raw)
+		local bcd1000s = getFirstNibbleAsDecimal(bcd1000_raw) * 10 + getSecondNibbleAsDecimal(bcd1000_raw)
+		return (bcd1000s * 1000) + (bcd10s * 10)
+	end
+
 	local function process_frame()
 		if (manager.machine.system.name ~= 'asteroid') then
 			return
@@ -137,6 +160,9 @@ function asteroids_stats.startplugin()
 			numAsteroids = 0
 			waveCount = 1
 			start_wave_time = nil
+			prevScore = 0
+			curScore = 0
+			flipScoreCount = 0
 			return
 		end
 
@@ -185,7 +211,16 @@ function asteroids_stats.startplugin()
 		end
 
 		scrStatus = space:read_u8(540)
-        end
+		curScore = getScore()
+		if curScore ~= prevScore then
+			if prevScore > curScore then
+				-- Machine flipped / Record for actual score
+				flipScoreCount = flipScoreCount + 1
+			end
+			-- Do difference check here
+			prevScore = curScore
+		end
+	end
 
 	local function process_frame_done()
 		if (manager.machine.system.name ~= 'asteroid') then
@@ -214,7 +249,7 @@ function asteroids_stats.startplugin()
 			manager.machine.render.ui_container:draw_text('right', 0.5, tobinary(scrStatus), 0xf00cc00c)
 			emu.print_info("scrStatus: " .. scrStatus .. " scrStatus BIN: " .. tobinary(scrStatus))
 		end
-
+		manager.machine.render.ui_container:draw_text('right', 0.7, curScore + (100000 * flipScoreCount), 0xf00cc00c)
 	end
 
 	local function menu_callback(index, event)
