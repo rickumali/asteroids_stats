@@ -127,6 +127,8 @@ function asteroids_stats.startplugin()
 		return
 	end
 
+	-- From @Luke100000 answer at https://stackoverflow.com/a/76108965/10030
+
 	-- In a byte, this returns the leftmost nibble: XXXX----
 	local function getFirstNibbleAsDecimal(num)
 		return math.floor(num / 16)
