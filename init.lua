@@ -150,7 +150,7 @@ function asteroids_stats.startplugin()
 				manager.machine:popmessage(message)
 			end
 		end
-        end
+	end
 
 	local function process_frame_done()
 		if (manager.machine.system.name ~= 'asteroid') then
