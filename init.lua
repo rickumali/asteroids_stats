@@ -152,6 +152,31 @@ function asteroids_stats.startplugin()
 		end
 	end
 
+	local function draw_score_board()
+		local ships = {}
+		ships[1] = { time = "7:50", score = "13000" }
+		ships[2] = { time = "3:50", score = "3020" }
+		ships[3] = { time = "0:40", score = "23100" }
+		ships[4] = { time = "2:50", score = "1300" }
+		ships[5] = { time = "1:43", score = "12040" }
+
+		local waves = {}
+		waves[1] = { time = "0:40" }
+		waves[2] = { time = "1:30" }
+		waves[3] = { time = "3:30" }
+		waves[4] = { time = "1:30" }
+		waves[5] = { time = "5:44" }
+
+		for i,s in ipairs(ships) do
+			ship_str = string.format('%s %s', s.time, s.score)
+		    manager.machine.render.ui_container:draw_text(0.60, i * 0.1, ship_str, 0xf00cc00c)
+		end
+		for i,s in ipairs(ships) do
+			wave_str = string.format('%s', s.time)
+		    manager.machine.render.ui_container:draw_text(0.80, i * 0.1, wave_str, 0xf00cc00c)
+		end
+	end
+
 	local function process_frame_done()
 		if (manager.machine.system.name ~= 'asteroid') then
 			return
@@ -174,6 +199,7 @@ function asteroids_stats.startplugin()
 			stat_str = string.format(_p('plugin-asteroids_stats', 'WAVE %02d ASTEROIDS %02d ELAPSED %s'), waveCount, numAsteroids, elapsed_str)
 		end
 		manager.machine.render.ui_container:draw_text(menu_justify[menu_justify_sel]['value'], 0.96, stat_str, 0xf00cc00c)
+		draw_score_board()
 	end
 
 	local function menu_callback(index, event)
