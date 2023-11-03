@@ -168,6 +168,7 @@ function asteroids_stats.startplugin()
 		waves[5] = { time = "5:44" }
 
 		for i,s in ipairs(ships) do
+			local ship_str
 			if i ~= #ships then
 				ship_str = string.format('Ship %d %s %s', i, s.time, s.score)
 			else
@@ -176,6 +177,7 @@ function asteroids_stats.startplugin()
 			manager.machine.render.ui_container:draw_text(0.60, i * 0.1, ship_str, 0xf00cc00c)
 		end
 		for i,w in ipairs(waves) do
+			local wave_str
 			if i ~= #waves  then
 				wave_str = string.format('Wave %d %s', i, w.time)
 			else
