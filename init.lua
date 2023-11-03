@@ -14,6 +14,10 @@ function asteroids_stats.startplugin()
 	local waveCount = 1
 	local numPlayers = 0
 	local start_wave_time = nil
+	local prevScore = 0
+	local curScore = 0
+	local flipScoreCount = 0
+	local actualScore = 0
 
 	local menu_justify_idx = 0
 	local menu_justify_sel
@@ -91,6 +95,28 @@ function asteroids_stats.startplugin()
 		return
 	end
 
+	-- From @Luke100000 answer at https://stackoverflow.com/a/76108965/10030
+
+	-- In a byte, this returns the leftmost nibble: XXXX----
+	local function getFirstNibbleAsDecimal(num)
+		return math.floor(num / 16)
+	end
+
+	-- In a byte, this returns the rightmost nibble: ----XXXX
+	local function getSecondNibbleAsDecimal(num)
+		return num % 16
+	end
+
+	local function getScore()
+		local cpu = manager.machine.devices[":maincpu"]
+		local space = cpu.spaces["program"]
+		local bcd10_raw = space:read_u8(82)
+		local bcd1000_raw = space:read_u8(83)
+		local bcd10s = getFirstNibbleAsDecimal(bcd10_raw) * 10 + getSecondNibbleAsDecimal(bcd10_raw)
+		local bcd1000s = getFirstNibbleAsDecimal(bcd1000_raw) * 10 + getSecondNibbleAsDecimal(bcd1000_raw)
+		return (bcd1000s * 1000) + (bcd10s * 10)
+	end
+
 	local function process_frame()
 		if (manager.machine.system.name ~= 'asteroid') then
 			return
@@ -104,6 +130,13 @@ function asteroids_stats.startplugin()
 			numAsteroids = 0
 			waveCount = 1
 			start_wave_time = nil
+			prevScore = 0
+			curScore = 0
+			flipScoreCount = 0
+			if actualScore ~= 0 then
+				emu.print_info("Final Score: " .. actualScore)
+			end
+			actualScore = 0
 			return
 		end
 
@@ -149,6 +182,21 @@ function asteroids_stats.startplugin()
 				message = string.format(_p('plugin-asteroids_stats', 'ASTEROIDS: %s %d Next...'), 'Wave', waveCount)
 				manager.machine:popmessage(message)
 			end
+		end
+		curScore = getScore()
+		if curScore ~= prevScore then
+			local diff = 0
+			if prevScore > curScore then
+				-- Machine flipped / Record for actual score
+				flipScoreCount = flipScoreCount + 1
+				diff = 100000 + curScore - prevScore
+			else
+				diff = curScore - prevScore
+			end
+			actualScore = curScore + (100000 * flipScoreCount)
+			-- Do difference check here
+			emu.print_info("Actual Score: " .. actualScore .. " Diff: " .. diff)
+			prevScore = curScore
 		end
 	end
 
