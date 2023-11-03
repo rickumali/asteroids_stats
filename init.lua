@@ -168,12 +168,20 @@ function asteroids_stats.startplugin()
 		waves[5] = { time = "5:44" }
 
 		for i,s in ipairs(ships) do
-			ship_str = string.format('%s %s', s.time, s.score)
-		    manager.machine.render.ui_container:draw_text(0.60, i * 0.1, ship_str, 0xf00cc00c)
+			if i ~= #ships then
+				ship_str = string.format('Ship %d %s %s', i, s.time, s.score)
+			else
+				ship_str = string.format('Current %s %s', s.time, s.score)
+			end
+			manager.machine.render.ui_container:draw_text(0.60, i * 0.1, ship_str, 0xf00cc00c)
 		end
-		for i,s in ipairs(ships) do
-			wave_str = string.format('%s', s.time)
-		    manager.machine.render.ui_container:draw_text(0.80, i * 0.1, wave_str, 0xf00cc00c)
+		for i,w in ipairs(waves) do
+			if i ~= #waves  then
+				wave_str = string.format('Wave %d %s', i, w.time)
+			else
+				wave_str = string.format('Current %s', w.time)
+			end
+			manager.machine.render.ui_container:draw_text(0.80, i * 0.1, wave_str, 0xf00cc00c)
 		end
 	end
 
