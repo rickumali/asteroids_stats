@@ -18,6 +18,7 @@ function asteroids_stats.startplugin()
 	local curScore = 0
 	local flipScoreCount = 0
 	local actualScore = 0
+	local waves = {}
 
 	local menu_justify_idx = 0
 	local menu_justify_sel
@@ -137,6 +138,8 @@ function asteroids_stats.startplugin()
 				emu.print_info("Final Score: " .. actualScore)
 			end
 			actualScore = 0
+			waves = {}
+			table.insert(waves, { time = "0:00" })
 			return
 		end
 
@@ -173,6 +176,7 @@ function asteroids_stats.startplugin()
 						msec_elapsed % 1000)
 				emu.print_info("Wave: " .. waveCount .. " Asteroids: DONE Elapsed: " .. elapsed_str)
 				start_wave_time = nil
+				table.insert(waves, { time = "0:00" })
 			else
 				emu.print_info("Wave: " .. waveCount .. " Asteroids: " .. numAsteroidsCur)
 			end
@@ -207,13 +211,6 @@ function asteroids_stats.startplugin()
 		ships[3] = { time = "0:40", score = "23100" }
 		ships[4] = { time = "2:50", score = "1300" }
 		ships[5] = { time = "1:43", score = "12040" }
-
-		local waves = {}
-		waves[1] = { time = "0:40" }
-		waves[2] = { time = "1:30" }
-		waves[3] = { time = "3:30" }
-		waves[4] = { time = "1:30" }
-		waves[5] = { time = "5:44" }
 
 		for i,s in ipairs(ships) do
 			local ship_str
@@ -255,6 +252,9 @@ function asteroids_stats.startplugin()
 					(sec_elapsed // 60) % 60,
 					sec_elapsed % 60)
 			stat_str = string.format(_p('plugin-asteroids_stats', 'WAVE %02d ASTEROIDS %02d ELAPSED %s'), waveCount, numAsteroids, elapsed_str)
+			if #waves ~= 0 then
+				waves[#waves] = { time = elapsed_str }
+			end
 		end
 		manager.machine.render.ui_container:draw_text(menu_justify[menu_justify_sel]['value'], 0.96, stat_str, 0xf00cc00c)
 		draw_score_board()
