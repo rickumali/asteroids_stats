@@ -151,21 +151,6 @@ function asteroids_stats.startplugin()
 			return
 		end
 
-		local numShipsPlayer1 = space:read_u8(87)
-		if numShipsPlayer1 == 0 then
-			return
-		end
-		if numShips ~= numShipsPlayer1 then
-			emu.print_info("Number of ships: " .. numShipsPlayer1)
-			if numShips ~= 0 then
-				table.insert(ships, { time = "0:00", score = "0"})
-			end
-			numShips = numShipsPlayer1
-		end
-		if start_wave_time == nil then
-			start_wave_time = manager.machine.time
-		end
-
 		local numAsteroidsCur = space:read_u8(758)
 		if numAsteroids ~= numAsteroidsCur then
 			if numAsteroidsCur == 0 then
@@ -208,6 +193,22 @@ function asteroids_stats.startplugin()
 			-- Do difference check here
 			emu.print_info("Actual Score: " .. actualScore .. " Diff: " .. diff)
 			prevScore = curScore
+		end
+
+		local numShipsPlayer1 = space:read_u8(87)
+		if numShipsPlayer1 == 0 then
+			return
+		end
+
+		if numShips ~= numShipsPlayer1 then
+			emu.print_info("Number of ships changed: BEFORE: " .. numShips .. " AFTER: " .. numShipsPlayer1)
+			if (numShips ~= 0) and (numShips > numShipsPlayer1) then
+				table.insert(ships, { time = "0:00", score = "0"})
+			end
+			numShips = numShipsPlayer1
+		end
+		if start_wave_time == nil then
+			start_wave_time = manager.machine.time
 		end
 	end
 
