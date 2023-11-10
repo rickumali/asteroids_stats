@@ -28,6 +28,17 @@ function asteroids_stats.startplugin()
 		{ ["label"] = "Right", ["arrows"] = "l", ["value"] = 'right' }
 	}
 
+	local function elapsed_time_string(now, from)
+		local elapsed = now - from
+		local sec_elapsed = elapsed.seconds
+		local msec_elapsed = (sec_elapsed * 1000) + elapsed.msec
+		local msec_elapsed_str = string.format('%015d', msec_elapsed)
+		return string.format(
+				'%02d:%02d',
+				(sec_elapsed // 60) % 60,
+				sec_elapsed % 60)
+	end
+
 	local function get_settings_path()
 		return manager.machine.options.entries.homepath:value():match('([^;]+)') .. '/asteroids_stats'
 	end
@@ -155,16 +166,7 @@ function asteroids_stats.startplugin()
 		if numAsteroids ~= numAsteroidsCur then
 			if numAsteroidsCur == 0 then
 				local end_wave_time = manager.machine.time
-				local elapsed = end_wave_time - start_wave_time
-				local sec_elapsed = elapsed.seconds
-				local msec_elapsed = (sec_elapsed * 1000) + elapsed.msec
-				local msec_elapsed_str = string.format('%015d', msec_elapsed)
-				local elapsed_str = string.format(
-						'%02d:%02d:%02d.%03d',
-						sec_elapsed // (60 * 60),
-						(sec_elapsed // 60) % 60,
-						sec_elapsed % 60,
-						msec_elapsed % 1000)
+				local elapsed_str = elapsed_time_string(end_wave_time, start_wave_time)
 				emu.print_info("Wave: " .. waveCount .. " Asteroids: DONE Elapsed: " .. elapsed_str)
 				start_wave_time = nil
 				table.insert(waves, { time = "0:00" })
@@ -173,6 +175,7 @@ function asteroids_stats.startplugin()
 			end
 			numAsteroids = numAsteroidsCur
 			if numAsteroidsCur == 0 then
+				local message
 				waveCount = waveCount + 1
 				message = string.format(_p('plugin-asteroids_stats', 'ASTEROIDS: %s %d Next...'), 'Wave', waveCount)
 				manager.machine:popmessage(message)
@@ -234,6 +237,7 @@ function asteroids_stats.startplugin()
 	end
 
 	local function process_frame_done()
+		local stat_str
 		if (manager.machine.system.name ~= 'asteroid') then
 			return
 		end
@@ -244,14 +248,7 @@ function asteroids_stats.startplugin()
 			stat_str = string.format(_p('plugin-asteroids_stats', 'WAVE %02d ASTEROIDS %02d'), waveCount, numAsteroids)
 		else
 			local cur_wave_time = manager.machine.time
-			local elapsed = cur_wave_time - start_wave_time
-			local sec_elapsed = elapsed.seconds
-			local msec_elapsed = (sec_elapsed * 1000) + elapsed.msec
-			local msec_elapsed_str = string.format('%015d', msec_elapsed)
-			local elapsed_str = string.format(
-					'%02d:%02d',
-					(sec_elapsed // 60) % 60,
-					sec_elapsed % 60)
+			local elapsed_str = elapsed_time_string(cur_wave_time, start_wave_time)
 			stat_str = string.format(_p('plugin-asteroids_stats', 'WAVE %02d ASTEROIDS %02d ELAPSED %s'), waveCount, numAsteroids, elapsed_str)
 			if #waves ~= 0 then
 				waves[#waves] = { time = elapsed_str }
