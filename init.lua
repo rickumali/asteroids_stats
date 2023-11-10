@@ -142,7 +142,7 @@ function asteroids_stats.startplugin()
 			waves = {}
 			table.insert(waves, { time = "0:00" })
 			ships = {}
-			table.insert(ships, { time = "0:00", score = "0"})
+			table.insert(ships, { time = "0:00", score = 0})
 			return
 		end
 
@@ -203,6 +203,7 @@ function asteroids_stats.startplugin()
 			else
 				diff = curScore - prevScore
 			end
+			ships[#ships].score = ships[#ships].score + diff
 			actualScore = curScore + (100000 * flipScoreCount)
 			-- Do difference check here
 			emu.print_info("Actual Score: " .. actualScore .. " Diff: " .. diff)
@@ -214,9 +215,9 @@ function asteroids_stats.startplugin()
 		for i,s in ipairs(ships) do
 			local ship_str
 			if i ~= #ships then
-				ship_str = string.format('Ship %d %s %s', i, s.time, s.score)
+				ship_str = string.format('Ship %d %s %d', i, s.time, s.score)
 			else
-				ship_str = string.format('Current %s %s', s.time, s.score)
+				ship_str = string.format('Current %s %d', s.time, s.score)
 			end
 			manager.machine.render.ui_container:draw_text(0.67, i * 0.025, ship_str, 0xf00cc00c)
 		end
