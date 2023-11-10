@@ -19,6 +19,7 @@ function asteroids_stats.startplugin()
 	local flipScoreCount = 0
 	local actualScore = 0
 	local waves = {}
+	local ships = {}
 
 	local menu_justify_idx = 0
 	local menu_justify_sel
@@ -140,6 +141,8 @@ function asteroids_stats.startplugin()
 			actualScore = 0
 			waves = {}
 			table.insert(waves, { time = "0:00" })
+			ships = {}
+			table.insert(ships, { time = "0:00", score = "0"})
 			return
 		end
 
@@ -154,6 +157,9 @@ function asteroids_stats.startplugin()
 		end
 		if numShips ~= numShipsPlayer1 then
 			emu.print_info("Number of ships: " .. numShipsPlayer1)
+			if numShips ~= 0 then
+				table.insert(ships, { time = "0:00", score = "0"})
+			end
 			numShips = numShipsPlayer1
 		end
 		if start_wave_time == nil then
@@ -205,13 +211,6 @@ function asteroids_stats.startplugin()
 	end
 
 	local function draw_score_board()
-		local ships = {}
-		ships[1] = { time = "7:50", score = "13000" }
-		ships[2] = { time = "3:50", score = "3020" }
-		ships[3] = { time = "0:40", score = "23100" }
-		ships[4] = { time = "2:50", score = "1300" }
-		ships[5] = { time = "1:43", score = "12040" }
-
 		for i,s in ipairs(ships) do
 			local ship_str
 			if i ~= #ships then
