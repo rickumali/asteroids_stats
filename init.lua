@@ -232,18 +232,26 @@ function asteroids_stats.startplugin()
 			if i ~= #ships then
 				ship_str = string.format('Ship %d %s %d', i, s.time, s.score)
 			else
-				ship_str = string.format('Current %s %d', s.time, s.score)
+				if i == 1 then
+					ship_str = string.format('Current Ship %s  %d', s.time, s.score)
+				else
+					ship_str = string.format('Current %s  %d', s.time, s.score)
+				end
 			end
-			manager.machine.render.ui_container:draw_text(0.67, i * 0.025, ship_str, 0xf00cc00c)
+			manager.machine.render.ui_container:draw_text(0.60, i * 0.025, ship_str, 0xf00cc00c)
 		end
 		for i,w in ipairs(waves) do
 			local wave_str
 			if i ~= #waves  then
 				wave_str = string.format('Wave %d %s', i, w.time)
 			else
-				wave_str = string.format('Current %s', w.time)
+				if i == 1 then
+					wave_str = string.format('Current Wave %s', w.time)
+				else
+					wave_str = string.format('Current %s', w.time)
+				end
 			end
-			manager.machine.render.ui_container:draw_text(0.87, i * 0.025, wave_str, 0xf00cc00c)
+			manager.machine.render.ui_container:draw_text(0.82, i * 0.025, wave_str, 0xf00cc00c)
 		end
 	end
 
