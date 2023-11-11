@@ -14,6 +14,7 @@ function asteroids_stats.startplugin()
 	local waveCount = 1
 	local numPlayers = 0
 	local start_wave_time = nil
+	local start_ship_time = nil
 	local prevScore = 0
 	local curScore = 0
 	local flipScoreCount = 0
@@ -143,6 +144,7 @@ function asteroids_stats.startplugin()
 			numAsteroids = 0
 			waveCount = 1
 			start_wave_time = nil
+			start_ship_time = nil
 			prevScore = 0
 			curScore = 0
 			flipScoreCount = 0
@@ -181,6 +183,7 @@ function asteroids_stats.startplugin()
 				manager.machine:popmessage(message)
 			end
 		end
+
 		curScore = getScore()
 		if curScore ~= prevScore then
 			local diff = 0
@@ -206,12 +209,20 @@ function asteroids_stats.startplugin()
 		if numShips ~= numShipsPlayer1 then
 			emu.print_info("Number of ships changed: BEFORE: " .. numShips .. " AFTER: " .. numShipsPlayer1)
 			if (numShips ~= 0) and (numShips > numShipsPlayer1) then
+				start_ship_time = manager.machine.time
 				table.insert(ships, { time = "0:00", score = "0"})
 			end
 			numShips = numShipsPlayer1
+		else
+			local end_ship_time = manager.machine.time
+			local elapsed_str = elapsed_time_string(end_ship_time, start_ship_time)
+			ships[#ships].time = elapsed_str
 		end
 		if start_wave_time == nil then
 			start_wave_time = manager.machine.time
+		end
+		if start_ship_time == nil then
+			start_ship_time = manager.machine.time
 		end
 	end
 
