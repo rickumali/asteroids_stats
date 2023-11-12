@@ -21,6 +21,9 @@ function asteroids_stats.startplugin()
 	local actualScore = 0
 	local waves = {}
 	local ships = {}
+	local hotkey_seq
+	local hotkey_pressed
+	local display_scoreboard = true
 
 	local menu_justify_idx = 0
 	local menu_justify_sel
@@ -96,6 +99,8 @@ function asteroids_stats.startplugin()
 		if (manager.machine.system.name ~= 'asteroid') then
 			return
 		end
+		hotkey_seq = manager.machine.input:seq_from_tokens('KEYCODE_B')
+		hotkey_pressed = false
 		load_settings()
 		local message
 		message = string.format(_p('plugin-asteroids_stats', 'ASTEROIDS: %s'), 'Stats Plugin On')
@@ -274,7 +279,15 @@ function asteroids_stats.startplugin()
 			end
 		end
 		manager.machine.render.ui_container:draw_text(menu_justify[menu_justify_sel]['value'], 0.96, stat_str, 0xf00cc00c)
-		draw_score_board()
+
+		local pressed = manager.machine.input:seq_pressed(hotkey_seq)
+		if (not hotkey_pressed) and pressed then
+			display_scoreboard = not display_scoreboard
+		end
+		hotkey_pressed = pressed
+		if display_scoreboard then
+			draw_score_board()
+		end
 	end
 
 	local function menu_callback(index, event)
