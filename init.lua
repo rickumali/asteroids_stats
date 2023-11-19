@@ -1,6 +1,6 @@
 local exports = {
 	name = 'asteroids_stats',
-	version = '0.1.0',
+	version = '0.2.0',
 	description = 'Asteroids Stats Plugin',
 	license = 'BSD-3-Clause',
 	author = { name = 'Rick Umali' } }
