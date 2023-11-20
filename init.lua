@@ -103,9 +103,9 @@ function asteroids_stats.startplugin()
 		hotkey_pressed = false
 		load_settings()
 		local message
-		message = string.format(_p('plugin-asteroids_stats', 'ASTEROIDS: %s'), 'Stats Plugin On')
+		message = string.format(_p('plugin-asteroids_stats', 'ASTEROIDS: %s (%s)'), 'Stats Plugin On', asteroids_stats.version)
 		emu.print_info(message)
-		message = string.format(_p('plugin-asteroids_stats', 'ASTEROIDS: %s'), 'Stats Plugin On')
+		message = string.format(_p('plugin-asteroids_stats', 'ASTEROIDS: %s (%s)'), 'Stats Plugin On', asteroids_stats.version)
 		manager.machine:popmessage(message)
 	end
 
