@@ -1,6 +1,6 @@
 local exports = {
 	name = 'asteroids_stats',
-	version = '0.1.0',
+	version = '0.2.0',
 	description = 'Asteroids Stats Plugin',
 	license = 'BSD-3-Clause',
 	author = { name = 'Rick Umali' } }
@@ -14,6 +14,16 @@ function asteroids_stats.startplugin()
 	local waveCount = 1
 	local numPlayers = 0
 	local start_wave_time = nil
+	local start_ship_time = nil
+	local prevScore = 0
+	local curScore = 0
+	local flipScoreCount = 0
+	local actualScore = 0
+	local waves = {}
+	local ships = {}
+	local hotkey_seq
+	local hotkey_pressed
+	local display_scoreboard = true
 
 	local menu_justify_idx = 0
 	local menu_justify_sel
@@ -21,6 +31,17 @@ function asteroids_stats.startplugin()
 		{ ["label"] = "Left", ["arrows"] = "r", ["value"] = 'left' },
 		{ ["label"] = "Right", ["arrows"] = "l", ["value"] = 'right' }
 	}
+
+	local function elapsed_time_string(now, from)
+		local elapsed = now - from
+		local sec_elapsed = elapsed.seconds
+		local msec_elapsed = (sec_elapsed * 1000) + elapsed.msec
+		local msec_elapsed_str = string.format('%015d', msec_elapsed)
+		return string.format(
+				'%02d:%02d',
+				(sec_elapsed // 60) % 60,
+				sec_elapsed % 60)
+	end
 
 	local function get_settings_path()
 		return manager.machine.options.entries.homepath:value():match('([^;]+)') .. '/asteroids_stats'
@@ -78,17 +99,41 @@ function asteroids_stats.startplugin()
 		if (manager.machine.system.name ~= 'asteroid') then
 			return
 		end
+		hotkey_seq = manager.machine.input:seq_from_tokens('KEYCODE_B')
+		hotkey_pressed = false
 		load_settings()
 		local message
-		message = string.format(_p('plugin-asteroids_stats', 'ASTEROIDS: %s'), 'Stats Plugin On')
+		message = string.format(_p('plugin-asteroids_stats', 'ASTEROIDS: %s (%s)'), 'Stats Plugin On', asteroids_stats.version)
 		emu.print_info(message)
-		message = string.format(_p('plugin-asteroids_stats', 'ASTEROIDS: %s'), 'Stats Plugin On')
+		message = string.format(_p('plugin-asteroids_stats', 'ASTEROIDS: %s (%s)'), 'Stats Plugin On', asteroids_stats.version)
 		manager.machine:popmessage(message)
 	end
 
 	local function stop()
 		save_settings()
 		return
+	end
+
+	-- From @Luke100000 answer at https://stackoverflow.com/a/76108965/10030
+
+	-- In a byte, this returns the leftmost nibble: XXXX----
+	local function getFirstNibbleAsDecimal(num)
+		return math.floor(num / 16)
+	end
+
+	-- In a byte, this returns the rightmost nibble: ----XXXX
+	local function getSecondNibbleAsDecimal(num)
+		return num % 16
+	end
+
+	local function getScore()
+		local cpu = manager.machine.devices[":maincpu"]
+		local space = cpu.spaces["program"]
+		local bcd10_raw = space:read_u8(82)
+		local bcd1000_raw = space:read_u8(83)
+		local bcd10s = getFirstNibbleAsDecimal(bcd10_raw) * 10 + getSecondNibbleAsDecimal(bcd10_raw)
+		local bcd1000s = getFirstNibbleAsDecimal(bcd1000_raw) * 10 + getSecondNibbleAsDecimal(bcd1000_raw)
+		return (bcd1000s * 1000) + (bcd10s * 10)
 	end
 
 	local function process_frame()
@@ -104,6 +149,18 @@ function asteroids_stats.startplugin()
 			numAsteroids = 0
 			waveCount = 1
 			start_wave_time = nil
+			start_ship_time = nil
+			prevScore = 0
+			curScore = 0
+			flipScoreCount = 0
+			if actualScore ~= 0 then
+				emu.print_info("Final Score: " .. actualScore)
+			end
+			actualScore = 0
+			waves = {}
+			table.insert(waves, { time = "0:00" })
+			ships = {}
+			table.insert(ships, { time = "0:00", score = 0})
 			return
 		end
 
@@ -112,47 +169,99 @@ function asteroids_stats.startplugin()
 			return
 		end
 
-		local numShipsPlayer1 = space:read_u8(87)
-		if numShipsPlayer1 == 0 then
-			return
-		end
-		if numShips ~= numShipsPlayer1 then
-			emu.print_info("Number of ships: " .. numShipsPlayer1)
-			numShips = numShipsPlayer1
-		end
-		if start_wave_time == nil then
-			start_wave_time = manager.machine.time
-		end
-
 		local numAsteroidsCur = space:read_u8(758)
 		if numAsteroids ~= numAsteroidsCur then
 			if numAsteroidsCur == 0 then
 				local end_wave_time = manager.machine.time
-				local elapsed = end_wave_time - start_wave_time
-				local sec_elapsed = elapsed.seconds
-				local msec_elapsed = (sec_elapsed * 1000) + elapsed.msec
-				local msec_elapsed_str = string.format('%015d', msec_elapsed)
-				local elapsed_str = string.format(
-						'%02d:%02d:%02d.%03d',
-						sec_elapsed // (60 * 60),
-						(sec_elapsed // 60) % 60,
-						sec_elapsed % 60,
-						msec_elapsed % 1000)
+				local elapsed_str = elapsed_time_string(end_wave_time, start_wave_time)
 				emu.print_info("Wave: " .. waveCount .. " Asteroids: DONE Elapsed: " .. elapsed_str)
 				start_wave_time = nil
+				table.insert(waves, { time = "0:00" })
 			else
 				emu.print_info("Wave: " .. waveCount .. " Asteroids: " .. numAsteroidsCur)
 			end
 			numAsteroids = numAsteroidsCur
 			if numAsteroidsCur == 0 then
+				local message
 				waveCount = waveCount + 1
 				message = string.format(_p('plugin-asteroids_stats', 'ASTEROIDS: %s %d Next...'), 'Wave', waveCount)
 				manager.machine:popmessage(message)
 			end
 		end
+
+		curScore = getScore()
+		if curScore ~= prevScore then
+			local diff = 0
+			if prevScore > curScore then
+				-- Machine flipped / Record for actual score
+				flipScoreCount = flipScoreCount + 1
+				diff = 100000 + curScore - prevScore
+			else
+				diff = curScore - prevScore
+			end
+			ships[#ships].score = ships[#ships].score + diff
+			actualScore = curScore + (100000 * flipScoreCount)
+			-- Do difference check here
+			emu.print_info("Actual Score: " .. actualScore .. " Diff: " .. diff)
+			prevScore = curScore
+		end
+
+		local numShipsPlayer1 = space:read_u8(87)
+		if numShipsPlayer1 == 0 then
+			return
+		end
+
+		if numShips ~= numShipsPlayer1 then
+			emu.print_info("Number of ships changed: BEFORE: " .. numShips .. " AFTER: " .. numShipsPlayer1)
+			if (numShips ~= 0) and (numShips > numShipsPlayer1) then
+				start_ship_time = manager.machine.time
+				table.insert(ships, { time = "0:00", score = "0"})
+			end
+			numShips = numShipsPlayer1
+		else
+			local end_ship_time = manager.machine.time
+			local elapsed_str = elapsed_time_string(end_ship_time, start_ship_time)
+			ships[#ships].time = elapsed_str
+		end
+		if start_wave_time == nil then
+			start_wave_time = manager.machine.time
+		end
+		if start_ship_time == nil then
+			start_ship_time = manager.machine.time
+		end
+	end
+
+	local function draw_score_board()
+		for i,s in ipairs(ships) do
+			local ship_str
+			if i ~= #ships then
+				ship_str = string.format('Ship %d %s %d', i, s.time, s.score)
+			else
+				if i == 1 then
+					ship_str = string.format('Current Ship %s  %d', s.time, s.score)
+				else
+					ship_str = string.format('Current %s  %d', s.time, s.score)
+				end
+			end
+			manager.machine.render.ui_container:draw_text(0.60, i * 0.025, ship_str, 0xf00cc00c)
+		end
+		for i,w in ipairs(waves) do
+			local wave_str
+			if i ~= #waves  then
+				wave_str = string.format('Wave %d %s', i, w.time)
+			else
+				if i == 1 then
+					wave_str = string.format('Current Wave %s', w.time)
+				else
+					wave_str = string.format('Current %s', w.time)
+				end
+			end
+			manager.machine.render.ui_container:draw_text(0.82, i * 0.025, wave_str, 0xf00cc00c)
+		end
 	end
 
 	local function process_frame_done()
+		local stat_str
 		if (manager.machine.system.name ~= 'asteroid') then
 			return
 		end
@@ -163,17 +272,22 @@ function asteroids_stats.startplugin()
 			stat_str = string.format(_p('plugin-asteroids_stats', 'WAVE %02d ASTEROIDS %02d'), waveCount, numAsteroids)
 		else
 			local cur_wave_time = manager.machine.time
-			local elapsed = cur_wave_time - start_wave_time
-			local sec_elapsed = elapsed.seconds
-			local msec_elapsed = (sec_elapsed * 1000) + elapsed.msec
-			local msec_elapsed_str = string.format('%015d', msec_elapsed)
-			local elapsed_str = string.format(
-					'%02d:%02d',
-					(sec_elapsed // 60) % 60,
-					sec_elapsed % 60)
+			local elapsed_str = elapsed_time_string(cur_wave_time, start_wave_time)
 			stat_str = string.format(_p('plugin-asteroids_stats', 'WAVE %02d ASTEROIDS %02d ELAPSED %s'), waveCount, numAsteroids, elapsed_str)
+			if #waves ~= 0 then
+				waves[#waves] = { time = elapsed_str }
+			end
 		end
 		manager.machine.render.ui_container:draw_text(menu_justify[menu_justify_sel]['value'], 0.96, stat_str, 0xf00cc00c)
+
+		local pressed = manager.machine.input:seq_pressed(hotkey_seq)
+		if (not hotkey_pressed) and pressed then
+			display_scoreboard = not display_scoreboard
+		end
+		hotkey_pressed = pressed
+		if display_scoreboard then
+			draw_score_board()
+		end
 	end
 
 	local function menu_callback(index, event)

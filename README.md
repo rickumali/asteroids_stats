@@ -5,272 +5,14 @@ A Lua plugin for [MAME](https://www.mamedev.org) that tracks Asteroids stats
 ## Instructions
 
 1. Install the plugin files
-    1. Go to your MAME installation directory and create a directory named asteroids_plugins in the plugins subdirectory.
-    1. Copy the two files init.lua and plugin.json into the asteroids_plugins directory.
+   1. Go to your MAME installation directory and create a directory named asteroids_plugins in the plugins subdirectory.
+   1. Copy the two files init.lua and plugin.json (from the ZIP) into the asteroids_plugins directory.
 1. Enable this plugin. The usual way to do this is by editing the mame.ini file and adding 'asteroids_stats' to the plugin option.
 
-Now that this enabled, the next time you play Asteroids, this plugin will run and emit information to the console.
-
+Now that this enabled, the next time you play Asteroids, this plugin will run and emit information to the console and the game screen.
+s
 **NOTE:** This only works for one player games!
 **NOTE:** This works on playback of recorded games!
-
-## Configuration
-
-## Output
-
-The display of the stats is in the lower-left corner of the game.
-
-![Display of stats on Asteroids game screen](asteroids_stats-display.png)
-
-When you play the game from command-line, you will also see output like below. 
-
-**NOTE:** This doesn't have file output yet!
-
-```
-rick@Mac:~/Projects/mame0258-x86 $ time ./mame asteroid -window -nomax
-ASTEROIDS: Stats Plugin On
-Number of ships: 3
-start_wave_time: 2
-Wave: 1 Asteroids: 4
-Wave: 1 Asteroids: 6
-Wave: 1 Asteroids: 8
-Wave: 1 Asteroids: 7
-Wave: 1 Asteroids: 9
-Wave: 1 Asteroids: 8
-Wave: 1 Asteroids: 7
-Wave: 1 Asteroids: 6
-Wave: 1 Asteroids: 5
-Wave: 1 Asteroids: 4
-Wave: 1 Asteroids: 3
-Wave: 1 Asteroids: 5
-Wave: 1 Asteroids: 7
-Wave: 1 Asteroids: 6
-Wave: 1 Asteroids: 8
-Wave: 1 Asteroids: 7
-Wave: 1 Asteroids: 6
-Wave: 1 Asteroids: 5
-Wave: 1 Asteroids: 4
-Wave: 1 Asteroids: 6
-Wave: 1 Asteroids: 5
-Wave: 1 Asteroids: 7
-Wave: 1 Asteroids: 6
-Wave: 1 Asteroids: 5
-Wave: 1 Asteroids: 7
-Wave: 1 Asteroids: 6
-Wave: 1 Asteroids: 8
-Wave: 1 Asteroids: 10
-Wave: 1 Asteroids: 9
-Wave: 1 Asteroids: 8
-Wave: 1 Asteroids: 7
-Wave: 1 Asteroids: 6
-Wave: 1 Asteroids: 8
-Wave: 1 Asteroids: 7
-Wave: 1 Asteroids: 6
-Wave: 1 Asteroids: 5
-Wave: 1 Asteroids: 4
-Wave: 1 Asteroids: 3
-Wave: 1 Asteroids: 2
-Wave: 1 Asteroids: 1
-Wave: 1 Asteroids: DONE Elapsed: 00:00:29.777
-Wave: 2 Asteroids: 6
-Wave: 2 Asteroids: 8
-Wave: 2 Asteroids: 10
-Wave: 2 Asteroids: 12
-Wave: 2 Asteroids: 11
-Wave: 2 Asteroids: 13
-Wave: 2 Asteroids: 12
-Wave: 2 Asteroids: 11
-Wave: 2 Asteroids: 10
-Wave: 2 Asteroids: 9
-Wave: 2 Asteroids: 8
-Wave: 2 Asteroids: 10
-Wave: 2 Asteroids: 9
-Wave: 2 Asteroids: 8
-Wave: 2 Asteroids: 10
-Wave: 2 Asteroids: 12
-Wave: 2 Asteroids: 14
-Wave: 2 Asteroids: 16
-Wave: 2 Asteroids: 15
-Wave: 2 Asteroids: 14
-Wave: 2 Asteroids: 16
-Wave: 2 Asteroids: 15
-Wave: 2 Asteroids: 14
-Number of ships: 2
-Wave: 2 Asteroids: 13
-Wave: 2 Asteroids: 12
-Wave: 2 Asteroids: 11
-Wave: 2 Asteroids: 10
-Wave: 2 Asteroids: 12
-Wave: 2 Asteroids: 14
-Wave: 2 Asteroids: 13
-Wave: 2 Asteroids: 12
-Wave: 2 Asteroids: 14
-Wave: 2 Asteroids: 13
-Wave: 2 Asteroids: 12
-Wave: 2 Asteroids: 11
-Wave: 2 Asteroids: 13
-Wave: 2 Asteroids: 12
-Wave: 2 Asteroids: 11
-Wave: 2 Asteroids: 10
-Wave: 2 Asteroids: 9
-Wave: 2 Asteroids: 8
-Wave: 2 Asteroids: 10
-Wave: 2 Asteroids: 9
-Wave: 2 Asteroids: 8
-Wave: 2 Asteroids: 7
-Wave: 2 Asteroids: 9
-Wave: 2 Asteroids: 8
-Wave: 2 Asteroids: 7
-Wave: 2 Asteroids: 6
-Wave: 2 Asteroids: 5
-Wave: 2 Asteroids: 4
-Wave: 2 Asteroids: 6
-Wave: 2 Asteroids: 5
-Wave: 2 Asteroids: 4
-Wave: 2 Asteroids: 6
-Wave: 2 Asteroids: 5
-Wave: 2 Asteroids: 4
-Wave: 2 Asteroids: 3
-Wave: 2 Asteroids: 2
-Wave: 2 Asteroids: 1
-Wave: 2 Asteroids: DONE Elapsed: 00:00:45.884
-Wave: 3 Asteroids: 8
-Wave: 3 Asteroids: 10
-Wave: 3 Asteroids: 12
-Wave: 3 Asteroids: 11
-Wave: 3 Asteroids: 10
-Wave: 3 Asteroids: 12
-Wave: 3 Asteroids: 14
-Wave: 3 Asteroids: 13
-Wave: 3 Asteroids: 12
-Wave: 3 Asteroids: 11
-Wave: 3 Asteroids: 13
-Wave: 3 Asteroids: 15
-Wave: 3 Asteroids: 14
-Wave: 3 Asteroids: 13
-Wave: 3 Asteroids: 12
-Wave: 3 Asteroids: 14
-Wave: 3 Asteroids: 16
-Wave: 3 Asteroids: 15
-Wave: 3 Asteroids: 17
-Wave: 3 Asteroids: 19
-Wave: 3 Asteroids: 18
-Wave: 3 Asteroids: 17
-Wave: 3 Asteroids: 16
-Wave: 3 Asteroids: 18
-Wave: 3 Asteroids: 17
-Wave: 3 Asteroids: 16
-Wave: 3 Asteroids: 15
-Wave: 3 Asteroids: 17
-Wave: 3 Asteroids: 19
-Wave: 3 Asteroids: 18
-Wave: 3 Asteroids: 17
-Wave: 3 Asteroids: 19
-Wave: 3 Asteroids: 18
-Wave: 3 Asteroids: 17
-Wave: 3 Asteroids: 16
-Wave: 3 Asteroids: 15
-Wave: 3 Asteroids: 14
-Wave: 3 Asteroids: 16
-Wave: 3 Asteroids: 15
-Wave: 3 Asteroids: 14
-Wave: 3 Asteroids: 13
-Wave: 3 Asteroids: 15
-Wave: 3 Asteroids: 14
-Wave: 3 Asteroids: 13
-Wave: 3 Asteroids: 12
-Wave: 3 Asteroids: 11
-Wave: 3 Asteroids: 10
-Wave: 3 Asteroids: 12
-Wave: 3 Asteroids: 14
-Wave: 3 Asteroids: 13
-Wave: 3 Asteroids: 12
-Wave: 3 Asteroids: 11
-Wave: 3 Asteroids: 13
-Wave: 3 Asteroids: 15
-Wave: 3 Asteroids: 14
-Wave: 3 Asteroids: 13
-Wave: 3 Asteroids: 12
-Wave: 3 Asteroids: 11
-Wave: 3 Asteroids: 10
-Wave: 3 Asteroids: 12
-Wave: 3 Asteroids: 14
-Wave: 3 Asteroids: 13
-Wave: 3 Asteroids: 12
-Wave: 3 Asteroids: 11
-Wave: 3 Asteroids: 10
-Wave: 3 Asteroids: 9
-Number of ships: 1
-Wave: 3 Asteroids: 8
-Wave: 3 Asteroids: 7
-Wave: 3 Asteroids: 9
-Wave: 3 Asteroids: 8
-Wave: 3 Asteroids: 7
-Wave: 3 Asteroids: 6
-Wave: 3 Asteroids: 8
-Wave: 3 Asteroids: 7
-Wave: 3 Asteroids: 6
-Wave: 3 Asteroids: 5
-Wave: 3 Asteroids: 4
-Number of ships: 2
-Wave: 3 Asteroids: 3
-Wave: 3 Asteroids: 2
-Wave: 3 Asteroids: 1
-Wave: 3 Asteroids: DONE Elapsed: 00:00:53.215
-Wave: 4 Asteroids: 10
-Wave: 4 Asteroids: 12
-Wave: 4 Asteroids: 11
-Wave: 4 Asteroids: 13
-Wave: 4 Asteroids: 15
-Wave: 4 Asteroids: 17
-Wave: 4 Asteroids: 19
-Wave: 4 Asteroids: 21
-Wave: 4 Asteroids: 23
-Wave: 4 Asteroids: 22
-Wave: 4 Asteroids: 21
-Wave: 4 Asteroids: 20
-Wave: 4 Asteroids: 22
-Wave: 4 Asteroids: 21
-Wave: 4 Asteroids: 20
-Wave: 4 Asteroids: 19
-Wave: 4 Asteroids: 18
-Wave: 4 Asteroids: 17
-Wave: 4 Asteroids: 16
-Wave: 4 Asteroids: 15
-Wave: 4 Asteroids: 17
-Wave: 4 Asteroids: 19
-Wave: 4 Asteroids: 21
-Wave: 4 Asteroids: 23
-Wave: 4 Asteroids: 22
-Wave: 4 Asteroids: 24
-Wave: 4 Asteroids: 23
-Wave: 4 Asteroids: 25
-Wave: 4 Asteroids: 24
-Wave: 4 Asteroids: 26
-Wave: 4 Asteroids: 25
-Wave: 4 Asteroids: 24
-Wave: 4 Asteroids: 23
-Wave: 4 Asteroids: 25
-Wave: 4 Asteroids: 24
-Wave: 4 Asteroids: 23
-Wave: 4 Asteroids: 22
-Wave: 4 Asteroids: 21
-Wave: 4 Asteroids: 20
-Wave: 4 Asteroids: 19
-Wave: 4 Asteroids: 21
-Wave: 4 Asteroids: 20
-Wave: 4 Asteroids: 19
-Wave: 4 Asteroids: 18
-Wave: 4 Asteroids: 17
-Number of ships: 1
-Wave: 4 Asteroids: 19
-Wave: 4 Asteroids: 18
-Average speed: 100.00% (155 seconds)
-
-real    2m41.576s
-user    0m35.730s
-sys     0m8.842s
-```
 
 ## Configuration
 
@@ -278,6 +20,103 @@ This plugin provides a menu option to control where the heads up display (HUD)
 for the statistics should appear: left or right. After you start Asteroids,
 Access this menu by pressing `TAB`, then `Plugin Options', then 'Asteroids
 Statistics'.
+
+## Output
+
+The display of the stats (current wave count, current asteroids count and
+current elapsed time) is located at the bottom of the game screen. It can be configured to
+display on the left or the right corner.
+
+![Display of stats on Asteroids game screen](asteroids_stats-display.png)
+
+The display of the scoreboard (current ship elapsed time and score, and current wave
+elapsed time) is in the upper right of the game.
+
+![Display of scoreboard on Asteroids game screen](asteroids_stats-scoreboard.png)
+
+**The display of the scoreboard can be toggled on or off by pressing the 'B' key.**
+
+When you play the game from command-line, you will also see output like below.
+
+**NOTE:** The output below is an excerpt. The asteroids_stats plugin does not have file output yet!
+
+```
+rick@Mac:~/Projects/mame0258-x86 $ ./mame asteroid -playback try-05 -window
+Input file: try-05
+INP version 3.0
+Created Mon Sep 18 22:05:12 2023
+
+Recorded using MAME 0.258 (mame0258-dirty)
+ASTEROIDS: Stats Plugin On
+Wave: 1 Asteroids: 4
+Number of ships changed: BEFORE: 0 AFTER: 3
+Wave: 1 Asteroids: 6
+Actual Score: 20 Diff: 20
+Wave: 1 Asteroids: 8
+Actual Score: 70 Diff: 50
+Actual Score: 170 Diff: 100
+Wave: 1 Asteroids: 7
+Wave: 1 Asteroids: 6
+Wave: 1 Asteroids: 5
+...
+Wave: 6 Asteroids: 1
+Actual Score: 55490 Diff: 1000
+Actual Score: 56490 Diff: 1000
+Actual Score: 57490 Diff: 1000
+Wave: 6 Asteroids: 3
+Wave: 6 Asteroids: 2
+Actual Score: 57590 Diff: 100
+Actual Score: 58590 Diff: 1000
+Wave: 6 Asteroids: 1
+Actual Score: 59590 Diff: 1000
+Wave: 6 Asteroids: DONE Elapsed: 02:12
+Wave: 7 Asteroids: 11
+Wave: 7 Asteroids: 13
+Actual Score: 59610 Diff: 20
+Wave: 7 Asteroids: 15
+Actual Score: 59660 Diff: 50
+Wave: 7 Asteroids: 17
+Actual Score: 59710 Diff: 50
+Actual Score: 59810 Diff: 100
+Actual Score: 59910 Diff: 100
+Wave: 7 Asteroids: 16
+Wave: 7 Asteroids: 18
+Actual Score: 59930 Diff: 20
+Wave: 7 Asteroids: 17
+Wave: 7 Asteroids: 16
+Wave: 7 Asteroids: 15
+Actual Score: 60030 Diff: 100
+Number of ships changed: BEFORE: 4 AFTER: 5
+Wave: 7 Asteroids: 14
+Wave: 7 Asteroids: 13
+Wave: 7 Asteroids: 12
+Wave: 7 Asteroids: 14
+Actual Score: 60050 Diff: 20
+Wave: 7 Asteroids: 16
+Actual Score: 60100 Diff: 50
+Actual Score: 60200 Diff: 100
+...
+Actual Score: 83890 Diff: 50
+Actual Score: 83990 Diff: 100
+Wave: 9 Asteroids: 23
+Actual Score: 84090 Diff: 100
+Wave: 9 Asteroids: 22
+Wave: 9 Asteroids: 21
+Wave: 9 Asteroids: 20
+Actual Score: 84190 Diff: 100
+Wave: 9 Asteroids: 19
+Wave: 9 Asteroids: 21
+Actual Score: 84240 Diff: 50
+Number of ships changed: BEFORE: 2 AFTER: 1
+Wave: 9 Asteroids: 20
+Actual Score: 84340 Diff: 100
+Wave: 9 Asteroids: 19
+Final Score: 84340
+Total playback frames: 59624
+Average recorded speed: 100%
+Exiting MAME now...
+Average speed: 97.13% (968 seconds)
+```
 
 ## Author
 
