@@ -32,9 +32,9 @@ display on the left or the right corner.
 The display of the scoreboard (current ship elapsed time and score, and current wave
 elapsed time) is in the upper right of the game.
 
-![Display of scoreboard on Asteroids game screen](asteroids_stats-scoreboard.png)
+**By default, the display of the scoreboard is OFF. It can be toggled on or off by pressing the 'B' key.**
 
-**The display of the scoreboard can be toggled on or off by pressing the 'B' key.**
+![Display of scoreboard on Asteroids game screen](asteroids_stats-scoreboard.png)
 
 When you play the game from command-line, you will also see output like below.
 
