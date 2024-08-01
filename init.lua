@@ -23,7 +23,7 @@ function asteroids_stats.startplugin()
 	local ships = {}
 	local hotkey_seq
 	local hotkey_pressed
-	local display_scoreboard = true
+	local display_scoreboard = false
 
 	local menu_justify_idx = 0
 	local menu_justify_sel
