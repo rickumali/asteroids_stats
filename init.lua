@@ -136,6 +136,64 @@ function asteroids_stats.startplugin()
 		return (bcd1000s * 1000) + (bcd10s * 10)
 	end
 
+	local function draw_score_board()
+		for i,s in ipairs(ships) do
+			local ship_str
+			if i ~= #ships then
+				ship_str = string.format('Ship %d %s %d', i, s.time, s.score)
+			else
+				if i == 1 then
+					ship_str = string.format('Current Ship %s  %d', s.time, s.score)
+				else
+					ship_str = string.format('Current %s  %d', s.time, s.score)
+				end
+			end
+			manager.machine.render.ui_container:draw_text(0.60, i * 0.025, ship_str, 0xf00cc00c)
+		end
+		for i,w in ipairs(waves) do
+			local wave_str
+			if i ~= #waves  then
+				wave_str = string.format('Wave %d %s', i, w.time)
+			else
+				if i == 1 then
+					wave_str = string.format('Current Wave %s', w.time)
+				else
+					wave_str = string.format('Current %s', w.time)
+				end
+			end
+			manager.machine.render.ui_container:draw_text(0.82, i * 0.025, wave_str, 0xf00cc00c)
+		end
+	end
+
+	local function print_score_board()
+		for i,s in ipairs(ships) do
+			local ship_str
+			if i ~= #ships then
+				ship_str = string.format('Ship %d %s %d', i, s.time, s.score)
+			else
+				if i == 1 then
+					ship_str = string.format('Current Ship %s  %d', s.time, s.score)
+				else
+					ship_str = string.format('Current %s  %d', s.time, s.score)
+				end
+			end
+			emu.print_info(ship_str)
+		end
+		for i,w in ipairs(waves) do
+			local wave_str
+			if i ~= #waves  then
+				wave_str = string.format('Wave %d %s', i, w.time)
+			else
+				if i == 1 then
+					wave_str = string.format('Current Wave %s', w.time)
+				else
+					wave_str = string.format('Current %s', w.time)
+				end
+			end
+			emu.print_info(wave_str)
+		end
+	end
+
 	local function process_frame()
 		if (manager.machine.system.name ~= 'asteroid') then
 			return
@@ -155,6 +213,7 @@ function asteroids_stats.startplugin()
 			flipScoreCount = 0
 			if actualScore ~= 0 then
 				emu.print_info("Final Score: " .. actualScore)
+				print_score_board()
 			end
 			actualScore = 0
 			waves = {}
@@ -231,34 +290,8 @@ function asteroids_stats.startplugin()
 		end
 	end
 
-	local function draw_score_board()
-		for i,s in ipairs(ships) do
-			local ship_str
-			if i ~= #ships then
-				ship_str = string.format('Ship %d %s %d', i, s.time, s.score)
-			else
-				if i == 1 then
-					ship_str = string.format('Current Ship %s  %d', s.time, s.score)
-				else
-					ship_str = string.format('Current %s  %d', s.time, s.score)
-				end
-			end
-			manager.machine.render.ui_container:draw_text(0.60, i * 0.025, ship_str, 0xf00cc00c)
-		end
-		for i,w in ipairs(waves) do
-			local wave_str
-			if i ~= #waves  then
-				wave_str = string.format('Wave %d %s', i, w.time)
-			else
-				if i == 1 then
-					wave_str = string.format('Current Wave %s', w.time)
-				else
-					wave_str = string.format('Current %s', w.time)
-				end
-			end
-			manager.machine.render.ui_container:draw_text(0.82, i * 0.025, wave_str, 0xf00cc00c)
-		end
-	end
+
+
 
 	local function process_frame_done()
 		local stat_str
