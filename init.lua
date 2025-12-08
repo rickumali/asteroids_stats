@@ -1,6 +1,6 @@
 local exports = {
 	name = 'asteroids_stats',
-	version = '0.2.1',
+	version = '0.2.2',
 	description = 'Asteroids Stats Plugin',
 	license = 'BSD-3-Clause',
 	author = { name = 'Rick Umali' } }
@@ -26,7 +26,7 @@ function asteroids_stats.startplugin()
 	local display_scoreboard = false
 
 	local menu_justify_idx = 0
-	local menu_justify_sel
+	local menu_justify_sel = 1
 	local menu_justify = {
 		{ ["label"] = "Left", ["arrows"] = "r", ["value"] = 'left' },
 		{ ["label"] = "Right", ["arrows"] = "l", ["value"] = 'right' }
@@ -52,6 +52,7 @@ function asteroids_stats.startplugin()
 		local cfgname = get_settings_path() .. '/plugin.cfg'
 		local cfgfile = io.open(cfgname, 'r')
 		if not cfgfile then
+			emu.print_info(string.format('Asteroids Statistics settings file "%s" not found, using defaults', cfgname))
 			return -- probably harmless, configuration just doesn't exist yet
 		end
 
