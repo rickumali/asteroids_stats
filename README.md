@@ -48,7 +48,7 @@ INP version 3.0
 Created Tue Feb 11 20:53:52 2025
 
 Recorded using MAME 0.258 (mame0258-dirty)
-ASTEROIDS: Stats Plugin On (0.2.1)
+ASTEROIDS: Stats Plugin On (0.2.2)
 Wave: 1 Asteroids: 4
 Number of ships changed: BEFORE: 0 AFTER: 3
 Wave: 1 Asteroids: 6
