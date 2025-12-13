@@ -3,11 +3,11 @@ set -euo pipefail
 
 progname="$(basename "$0")"
 usage() {
-  cat <<"FOOBARBAZ"
+  cat <<FOOBARBAZ
 Usage: $progname [ -i ] [file]
 Converts elapsed time stamps from MM:SS to MMhSSs.
-- If `file` is provided, writes result to stdout.
-- With `-i`, edits the file in-place safely.
+- If 'file' is provided, writes result to stdout.
+- With '-i', edits the file in-place safely.
 - If no file provided, reads from stdin.
 
 Examples:
