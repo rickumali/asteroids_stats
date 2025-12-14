@@ -37,7 +37,7 @@ function asteroids_stats.startplugin()
 		local sec_elapsed = curtime.seconds
 		return string.format(
 				'%02d:%02d',
-				(sec_elapsed // 60) % 60,
+				sec_elapsed // 60,
 				sec_elapsed % 60)
 	end
 
