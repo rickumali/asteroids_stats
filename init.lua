@@ -236,11 +236,12 @@ function asteroids_stats.startplugin()
 			if numAsteroidsCur == 0 then
 				local end_wave_time = manager.machine.time
 				local elapsed_str = elapsed_time_string(end_wave_time, start_wave_time)
-				emu.print_info("Wave: " .. waveCount .. " Asteroids: DONE Elapsed: " .. elapsed_str)
+				emu.print_info(wallclock_time_string() .. " Wave: " .. waveCount .. " Asteroids: DONE Elapsed: " .. elapsed_str)
 				start_wave_time = nil
 				table.insert(waves, { time = "0:00" })
+				-- TODO: Insert into the table the wallclock time!
 			else
-				emu.print_info("Wave: " .. waveCount .. " Asteroids: " .. numAsteroidsCur)
+				emu.print_info(wallclock_time_string() .. " Wave: " .. waveCount .. " Asteroids: " .. numAsteroidsCur)
 			end
 			numAsteroids = numAsteroidsCur
 			if numAsteroidsCur == 0 then
@@ -264,7 +265,7 @@ function asteroids_stats.startplugin()
 			ships[#ships].score = ships[#ships].score + diff
 			actualScore = curScore + (100000 * flipScoreCount)
 			-- Do difference check here
-			emu.print_info("Actual Score: " .. actualScore .. " Diff: " .. diff)
+			emu.print_info(wallclock_time_string() .. " Actual Score: " .. actualScore .. " Diff: " .. diff)
 			prevScore = curScore
 		end
 
@@ -274,10 +275,11 @@ function asteroids_stats.startplugin()
 		end
 
 		if numShips ~= numShipsPlayer1 then
-			emu.print_info("Number of ships changed: BEFORE: " .. numShips .. " AFTER: " .. numShipsPlayer1)
+			emu.print_info(wallclock_time_string() .. " Number of ships changed: BEFORE: " .. numShips .. " AFTER: " .. numShipsPlayer1)
 			if (numShips ~= 0) and (numShips > numShipsPlayer1) then
 				start_ship_time = manager.machine.time
 				table.insert(ships, { time = "0:00", score = "0"})
+				-- TODO: Insert into the table the wallclock time!
 			end
 			numShips = numShipsPlayer1
 		else
