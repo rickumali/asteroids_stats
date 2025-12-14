@@ -32,6 +32,16 @@ function asteroids_stats.startplugin()
 		{ ["label"] = "Right", ["arrows"] = "l", ["value"] = 'right' }
 	}
 
+	local function wallclock_time_string()
+		local curtime = manager.machine.time
+		local sec_elapsed = curtime.seconds
+		return string.format(
+				'%02d:%02d',
+				(sec_elapsed // 60) % 60,
+				sec_elapsed % 60)
+	end
+
+
 	local function elapsed_time_string(now, from)
 		local elapsed = now - from
 		local sec_elapsed = elapsed.seconds
