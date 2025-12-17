@@ -156,12 +156,12 @@ function asteroids_stats.startplugin()
 		for i,s in ipairs(ships) do
 			local ship_str
 			if i ~= #ships then
-				ship_str = string.format('Ship %d %s %d', i, s.time, s.score)
+				ship_str = string.format('%s Ship %d %s %d', s.start_time, i, s.time, s.score)
 			else
 				if i == 1 then
-					ship_str = string.format('Current Ship %s  %d', s.time, s.score)
+					ship_str = string.format('%s Current Ship %s  %d', s.start_time, s.time, s.score)
 				else
-					ship_str = string.format('Current %s  %d', s.time, s.score)
+					ship_str = string.format('%s Current %s  %d', s.start_time, s.time, s.score)
 				end
 			end
 			printer(ship_str, i, 0.60)
@@ -169,12 +169,12 @@ function asteroids_stats.startplugin()
 		for i,w in ipairs(waves) do
 			local wave_str
 			if i ~= #waves  then
-				wave_str = string.format('Wave %d %s', i, w.time)
+				wave_str = string.format('%s Wave %d %s', w.start_time, i, w.time)
 			else
 				if i == 1 then
-					wave_str = string.format('Current Wave %s', w.time)
+					wave_str = string.format('%s Current Wave %s', w.start_time, w.time)
 				else
-					wave_str = string.format('Current %s', w.time)
+					wave_str = string.format('%s Current %s', w.start_time, w.time)
 				end
 			end
 			printer(wave_str, i, 0.82)
@@ -219,10 +219,11 @@ function asteroids_stats.startplugin()
 				print_score_board()
 			end
 			actualScore = 0
+			local start_time_str = wallclock_time_string()
 			waves = {}
-			table.insert(waves, { time = "0:00" })
+			table.insert(waves, { start_time = start_time_str, time = "0:00" })
 			ships = {}
-			table.insert(ships, { time = "0:00", score = 0})
+			table.insert(ships, { start_time = start_time_str, time = "0:00", score = 0})
 			return
 		end
 
@@ -238,8 +239,7 @@ function asteroids_stats.startplugin()
 				local elapsed_str = elapsed_time_string(end_wave_time, start_wave_time)
 				emu.print_info(wallclock_time_string() .. " Wave: " .. waveCount .. " Asteroids: DONE Elapsed: " .. elapsed_str)
 				start_wave_time = nil
-				table.insert(waves, { time = "0:00" })
-				-- TODO: Insert into the table the wallclock time!
+				table.insert(waves, { start_time = wallclock_time_string(), time = "0:00" })
 			else
 				emu.print_info(wallclock_time_string() .. " Wave: " .. waveCount .. " Asteroids: " .. numAsteroidsCur)
 			end
@@ -278,8 +278,7 @@ function asteroids_stats.startplugin()
 			emu.print_info(wallclock_time_string() .. " Number of ships changed: BEFORE: " .. numShips .. " AFTER: " .. numShipsPlayer1)
 			if (numShips ~= 0) and (numShips > numShipsPlayer1) then
 				start_ship_time = manager.machine.time
-				table.insert(ships, { time = "0:00", score = "0"})
-				-- TODO: Insert into the table the wallclock time!
+				table.insert(ships, { start_time = wallclock_time_string(), time = "0:00", score = "0"})
 			end
 			numShips = numShipsPlayer1
 		else
