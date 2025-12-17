@@ -315,7 +315,7 @@ function asteroids_stats.startplugin()
 			local elapsed_str = elapsed_time_string(cur_wave_time, start_wave_time)
 			stat_str = string.format(_p('plugin-asteroids_stats', 'WAVE %02d ASTEROIDS %02d ELAPSED %s'), waveCount, numAsteroids, elapsed_str)
 			if #waves ~= 0 then
-				waves[#waves] = { time = elapsed_str }
+				waves[#waves].time = elapsed_str
 			end
 		end
 		manager.machine.render.ui_container:draw_text(menu_justify[menu_justify_sel]['value'], 0.96, stat_str, 0xf00cc00c)
