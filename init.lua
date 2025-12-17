@@ -182,7 +182,10 @@ function asteroids_stats.startplugin()
 	end
 
 	local function draw_printer(text, row, x)
-		manager.machine.render.ui_container:draw_text(x, row * 0.025, text, 0xf00cc00c)
+		-- Remove start time string when drawing to the UI
+		local s = string.find(text, " ")
+		local no_start_time = string.sub(text, s + 1)
+		manager.machine.render.ui_container:draw_text(x, row * 0.025, no_start_time, 0xf00cc00c)
 	end
 
 	local function print_printer(text, row, x)
