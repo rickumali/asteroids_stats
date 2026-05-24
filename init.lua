@@ -242,8 +242,11 @@ function asteroids_stats.startplugin()
 				local elapsed_str = elapsed_time_string(end_wave_time, start_wave_time)
 				emu.print_info(wallclock_time_string() .. " Wave: " .. waveCount .. " Asteroids: DONE Elapsed: " .. elapsed_str)
 				start_wave_time = nil
-				table.insert(waves, { start_time = wallclock_time_string(), time = "0:00" })
+				table.insert(waves, { start_time = nil, time = "0:00" })
 			else
+				if #waves ~= 0 and waves[#waves].start_time == nil then
+					waves[#waves].start_time = wallclock_time_string()
+				end
 				emu.print_info(wallclock_time_string() .. " Wave: " .. waveCount .. " Asteroids: " .. numAsteroidsCur)
 			end
 			numAsteroids = numAsteroidsCur
